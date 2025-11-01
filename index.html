@@ -1,295 +1,401 @@
-<!-- MERGE PACK for insta-boost-tool.vercel.app (non-invasive) --><!-- Keep your current HTML as-is. Paste the following in the indicated places. --><!-- ========================= 1) <head> additions ========================= --><!-- Put these inside <head> (keep your own CSS/JS intact). --><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<style>
-  /* All styles are scoped under #pt-addons to avoid conflicts */
-  :root{ --pt-radius:16px; --pt-shadow:0 12px 30px rgba(0,0,0,.45); --pt-max:1100px; --pt-pad:18px; --pt-gap:14px; --pt-font:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
-  html[data-theme="dark"]{
-    --pt-bg:#0b0b0d; --pt-bg2:#121317; --pt-panel:#151721; --pt-panel2:#0f1014;
-    --pt-border:#1e1f25; --pt-muted:#a0a4b2; --pt-text:#f1f2f6; --pt-text2:#e8eaf0;
-    --pt-accent:#7c5cff; --pt-accent2:#19c37d; --pt-watermark:rgba(255,255,255,.40);
-    --pt-chip:#16171d; --pt-chipb:#2a2d38; --pt-grad:linear-gradient(90deg,#7c5cff,#b37bff);
-  }
-  html[data-theme="light"]{
-    --pt-bg:#fafbff; --pt-bg2:#ffffff; --pt-panel:#f6f7fb; --pt-panel2:#ffffff;
-    --pt-border:#dfe3ee; --pt-muted:#556070; --pt-text:#0f1218; --pt-text2:#1b1f27;
-    --pt-accent:#7c5cff; --pt-accent2:#19c37d; --pt-watermark:rgba(0,0,0,.40);
-    --pt-chip:#ffffff; --pt-chipb:#cfd6e6; --pt-grad:linear-gradient(90deg,#7c5cff,#b37bff);
-  }/* Floating theme toggle (won't touch your header) */ #pt-theme-toggle{ position:fixed; right:12px; top:12px; z-index:9998; border:1px solid var(--pt-border); background:var(--pt-chip); color:var(--pt-text); padding:8px 12px; border-radius:10px; font:700 13px var(--pt-font); cursor:pointer }
-
-/* Watermark (single, bottom-right) */ .pt-watermark{ position:fixed; right:14px; bottom:10px; font:600 14px var(--pt-font); color:var(--pt-watermark); z-index:9999; pointer-events:none; user-select:none }
-
-/* Addons wrapper */ #pt-addons{ font-family:var(--pt-font); color:var(--pt-text) }
-
-/* Sections */ #pt-addons .pt-section{ max-width:var(--pt-max); margin:24px auto; padding:0 var(--pt-pad) } #pt-addons .pt-card{ background:var(--pt-panel); border:1px solid var(--pt-border); border-radius:var(--pt-radius); box-shadow:var(--pt-shadow) } #pt-addons .pt-card.pad{ padding:18px } #pt-addons .pt-muted{ color:var(--pt-muted) } #pt-addons h2{ font:800 clamp(22px,3vw,32px)/1.2 var(--pt-font); margin:10px 0 8px }
-
-/* Before/After */ #pt-addons .pt-grid{ display:grid; gap:var(--pt-gap); grid-template-columns:repeat(12,1fr) } #pt-addons .pt-col-6{ grid-column:span 6 } #pt-addons .pt-col-12{ grid-column:span 12 } @media (max-width:900px){ #pt-addons .pt-col-6{ grid-column:span 12 } } .pt-ba{ position:relative; border-radius:14px; border:1px solid var(--pt-border); overflow:hidden; background:var(--pt-panel2); aspect-ratio:16/9 } .pt-ba img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover } .pt-ba .after{ clip-path:inset(0 0 0 50%) } .pt-ba .slider{ position:absolute; inset:auto 0 0 0; appearance:none; width:100%; height:24px; background:rgba(0,0,0,.18); border-top:1px solid var(--pt-border) } .pt-ba .slider::-webkit-slider-thumb{ appearance:none; width:28px; height:28px; border-radius:50%; background:var(--pt-accent); box-shadow:0 0 0 4px rgba(124,92,255,.35) } .pt-ba .cap{ position:absolute; left:10px; top:10px; background:var(--pt-chip); border:1px solid var(--pt-border); padding:4px 8px; border-radius:999px; font-size:12px }
-
-/* Video Tools */ #pt-lab .vt-wrap{ background:var(--pt-panel); border:1px solid var(--pt-border); border-radius:16px; box-shadow:var(--pt-shadow); padding:18px } #pt-lab h3{ font:800 24px/1.2 var(--pt-font); margin:6px 6px 8px } #pt-lab .vt-muted{ color:var(--pt-muted); margin:0 6px 12px } #pt-lab .vt-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px } @media (max-width:760px){ #pt-lab .vt-grid{ grid-template-columns:1fr } } #pt-lab .vt-card{ background:var(--pt-panel2); border:1px solid var(--pt-border); border-radius:12px; padding:12px } #pt-lab .vt-actions{ display:flex; align-items:center; gap:10px } #pt-lab .vt-output{ grid-column:1 / -1 } #pt-lab .vt-result{ min-height:56px; display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--pt-text2) } #pt-lab .vt-label{ display:block; color:var(--pt-text); opacity:.9; font-weight:700; margin:0 0 6px 2px; font-size:13px } #pt-lab .vt-input, #pt-lab select{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--pt-chipb); background:var(--pt-chip); color:var(--pt-text) } #pt-lab .vt-extra > *{ margin-top:8px } #pt-lab .vt-btn{ background:var(--pt-grad); color:#0d0e13; border:none; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer } #pt-lab .vt-btn:disabled{ opacity:.6 } #pt-lab .vt-status{ color:var(--pt-muted) } #pt-lab a.vt-dl{ display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; background:var(--pt-chip); border:1px solid var(--pt-chipb); color:var(--pt-text); text-decoration:none } #pt-lab .bar{ height:8px; border-radius:8px; background:rgba(255,255,255,.08); overflow:hidden } #pt-lab .bar>i{ display:block; height:100%; width:0%; background:var(--pt-accent); transition:width .2s } #pt-templates{ display:flex; flex-wrap:wrap; gap:8px } .tpl{ background:var(--pt-chip); border:1px solid var(--pt-chipb); color:var(--pt-text); padding:8px 10px; border-radius:10px; font-weight:700; cursor:pointer } .tpl:hover{ outline:2px solid rgba(124,92,255,.4) } .auto-run{ display:inline-flex; gap:6px; align-items:center; margin-left:auto; color:var(--pt-muted) } </style>
-
-<!-- ========================= 2) Just after <body> ========================= --><!-- Floating theme toggle (keeps your header untouched) --><button id="pt-theme-toggle" type="button">Light Mode</button>
-
-<!-- Single watermark (bottom-right) --><div class="pt-watermark">phoenix Travis</div><!-- ========================= 3) Before </body>: Addons ========================= --><div id="pt-addons">
-  <!-- A) BEFORE/AFTER section (3 demo pairs) -->
-  <section class="pt-section" aria-label="Before After">
-    <h2>Before & After</h2>
-    <p class="pt-muted">Replace file paths with your images. Drag slider to compare.</p>
-    <div class="pt-grid">
-      <figure class="pt-ba pt-col-6">
-        <img class="before" src="media/before01.jpg" alt="Before 1">
-        <img class="after"  src="media/after01.jpg"  alt="After 1">
-        <input class="slider" type="range" min="0" max="100" value="50" aria-label="Compare">
-        <figcaption class="cap">Color grade</figcaption>
-      </figure>
-      <figure class="pt-ba pt-col-6">
-        <img class="before" src="media/before02.jpg" alt="Before 2">
-        <img class="after"  src="media/after02.jpg"  alt="After 2">
-        <input class="slider" type="range" min="0" max="100" value="50" aria-label="Compare">
-        <figcaption class="cap">Crop & sharpen</figcaption>
-      </figure>
-      <figure class="pt-ba pt-col-12" style="aspect-ratio:21/9">
-        <img class="before" src="media/before03.jpg" alt="Before 3">
-        <img class="after"  src="media/after03.jpg"  alt="After 3">
-        <input class="slider" type="range" min="0" max="100" value="60" aria-label="Compare">
-        <figcaption class="cap">Tone & clarity</figcaption>
-      </figure>
-    </div>
-  </section>  <!-- B) VIDEO TOOLS (20 tools) -->  <link rel="preconnect" href="https://unpkg.com">
-  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js"></script>
-  <section id="pt-lab" class="pt-section" aria-label="Video Tools">
-    <div class="vt-wrap">
-      <h3>Video Tools</h3>
-      <p class="vt-muted">Runs in your browser via ffmpeg.wasm. Best with H.264 MP4.</p><div class="toprow" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 4px">
-    <div id="vt-templates">
-      <button class="tpl" data-tpl="speed:1.25">Speed 1.25×</button>
-      <button class="tpl" data-tpl="speed:1.5">Speed 1.5×</button>
-      <button class="tpl" data-tpl="speed:2">Speed 2×</button>
-      <button class="tpl" data-tpl="speed:3">Speed 3×</button>
-      <button class="tpl" data-tpl="story720">Story 9:16 • 720p</button>
-      <button class="tpl" data-tpl="squareMute">Square 1:1 • Mute</button>
-      <button class="tpl" data-tpl="compressIG">Compress IG</button>
-      <button class="tpl" data-tpl="yt1080">YouTube 1080p</button>
-    </div>
-    <label class="auto-run"><input type="checkbox" id="tplAuto"> auto‑run</label>
-  </div>
-
-  <div class="vt-grid">
-    <div class="vt-card">
-      <label class="vt-label">Tool</label>
-      <select id="vt-tool" class="vt-input">
-        <option value="trim">Trim (start–end)</option>
-        <option value="cut">Cut range (keep only)</option>
-        <option value="mute">Mute audio</option>
-        <option value="extract-audio">Extract audio (MP3)</option>
-        <option value="speed">Change speed (0.25–4x)</option>
-        <option value="rotate90">Rotate 90°</option>
-        <option value="reverse">Reverse video</option>
-        <option value="loop">Loop N times</option>
-        <option value="resize">Resize (1080/720/540)</option>
-        <option value="crop-square">Crop to square</option>
-        <option value="to-mp4">Convert to MP4 (H.264/AAC)</option>
-        <option value="compress">Compress (CRF 18–32)</option>
-        <option value="vbitrate">Set video bitrate (e.g. 2M)</option>
-        <option value="abitrate">Set audio bitrate (e.g. 128k)</option>
-        <option value="wm-text">Text watermark</option>
-        <option value="wm-image">Image watermark (overlay)</option>
-        <option value="merge">Merge 2 videos</option>
-        <option value="frame">Capture frame (PNG)</option>
-        <option value="replace-audio">Replace audio (bg track)</option>
-        <option value="gif">Extract GIF (start–dur)</option>
-      </select>
-    </div>
-
-    <div class="vt-card">
-      <label class="vt-label">Primary video</label>
-      <input id="vt-file" class="vt-input" type="file" accept="video/*" />
-      <div id="vt-extra" class="vt-extra"></div>
-    </div>
-
-    <div class="vt-card vt-actions">
-      <button id="vt-run" class="vt-btn">Run</button>
-      <span id="vt-status" class="vt-status">Idle</span>
-    </div>
-
-    <div class="vt-card vt-output">
-      <div class="vt-label" style="margin-bottom:6px">Progress</div>
-      <div class="bar"><i id="vt-bar"></i></div>
-      <div id="vt-result" class="vt-result" style="margin-top:10px">Output will appear here.</div>
-    </div>
-
-    <div class="vt-card vt-preview" id="vt-preview" style="display:none; grid-column:1 / -1;">
-      <div class="vt-label" style="margin-bottom:6px">Reverse preview</div>
-      <video id="vt-prevvid" controls style="width:100%;max-height:420px;border-radius:12px; background:black"></video>
-    </div>
-  </div>
-</div>
-
-  </section>
-</div><!-- ========================= 4) Scripts (bottom) ========================= --><script>
-  // Theme toggle with persistence (non-invasive)
-  (function(){
-    const btn = document.getElementById('pt-theme-toggle');
-    const preferred = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', preferred);
-    btn.textContent = preferred === 'dark' ? 'Light Mode' : 'Dark Mode';
-    btn.addEventListener('click', () => {
-      const cur = document.documentElement.getAttribute('data-theme');
-      const next = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      btn.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
-    });
-  })();
-
-  // Before/After sliders
-  (function(){
-    document.querySelectorAll('#pt-addons .pt-ba').forEach(ba => {
-      const after = ba.querySelector('.after');
-      const slider = ba.querySelector('.slider');
-      const update = () => { after.style.clipPath = `inset(0 0 0 ${slider.value}%)`; };
-      slider.addEventListener('input', update); update();
-    });
-  })();
-
-  // Video Tools (ffmpeg.wasm) - fully scoped
-  (function(){
-    if(!window.FFmpeg){ console.warn('FFmpeg script not loaded'); return; }
-    const { createFFmpeg, fetchFile } = FFmpeg;
-    const ffmpeg = createFFmpeg({ log: true, corePath: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.js' });
-    const $ = (s) => document.querySelector(s);
-    const toolSel = $('#vt-tool');
-    const fileInput = $('#vt-file');
-    const extra = $('#vt-extra');
-    const runBtn = $('#vt-run');
-    const statusEl = $('#vt-status');
-    const bar = $('#vt-bar');
-    const resultEl = $('#vt-result');
-    const prevBox = $('#vt-preview');
-    const prevVid = $('#vt-prevvid');
-
-    function setStatus(msg){ statusEl.textContent = msg; }
-    function setProg(r){ bar.style.width = Math.round((r||0)*100) + '%'; }
-    function clearExtra(){ extra.innerHTML=''; }
-    function inputRow(html){ const d=document.createElement('div'); d.innerHTML=html; extra.appendChild(d); return d; }
-
-    function renderExtra(){
-      clearExtra(); const v = toolSel.value;
-      if(['trim','cut','frame','gif'].includes(v)) inputRow('<label class="vt-label">Start (e.g. 00:00:03.0)</label><input id="vt-start" class="vt-input" placeholder="00:00:00.0">');
-      if(['trim','cut','gif'].includes(v)) inputRow('<label class="vt-label">Duration (e.g. 5 or 00:00:05.0)</label><input id="vt-dur" class="vt-input" placeholder="seconds or 00:00:05.0">');
-      if(v==='speed') inputRow('<label class="vt-label">Speed (0.25–4)</label><input id="vt-speed" class="vt-input" type="number" step="0.05" min="0.25" max="4" value="1.5">');
-      if(v==='loop') inputRow('<label class="vt-label">Times</label><input id="vt-times" class="vt-input" type="number" min="2" max="10" value="3">');
-      if(v==='resize') inputRow('<label class="vt-label">Resolution</label><select id="vt-res" class="vt-input"><option value="1920:1080">1080p</option><option value="1280:720">720p</option><option value="960:540">540p</option></select>');
-      if(v==='compress') inputRow('<label class="vt-label">CRF (18 best – 32 smaller)</label><input id="vt-crf" class="vt-input" type="number" min="18" max="32" value="26">');
-      if(v==='vbitrate') inputRow('<label class="vt-label">Video bitrate</label><input id="vt-vb" class="vt-input" placeholder="e.g. 2000k or 2M" value="2000k">');
-      if(v==='abitrate') inputRow('<label class="vt-label">Audio bitrate</label><input id="vt-ab" class="vt-input" placeholder="e.g. 128k" value="128k">');
-      if(v==='wm-text'){
-        inputRow('<label class="vt-label">Text</label><input id="vt-txt" class="vt-input" value="phoenix Travis">');
-        inputRow('<label class="vt-label">Position</label><select id="vt-pos" class="vt-input"><option value="10:main_h-text_h-10">Bottom-left</option><option value="(main_w-text_w)/2:main_h-text_h-10">Bottom-center</option><option value="main_w-text_w-10:main_h-text_h-10">Bottom-right</option></select>');
-      }
-      if(v==='wm-image'){
-        inputRow('<label class="vt-label">Watermark image</label><input id="vt-wmi" class="vt-input" type="file" accept="image/*">');
-        inputRow('<label class="vt-label">Position</label><select id="vt-pos" class="vt-input"><option value="10:10">Top-left</option><option value="(main_w-overlay_w)/2:10">Top-center</option><option value="main_w-overlay_w-10:10">Top-right</option><option value="10:main_h-overlay_h-10">Bottom-left</option><option value="(main_w-overlay_w)/2:main_h-overlay_h-10">Bottom-center</option><option value="main_w-overlay_w-10:main_h-overlay_h-10">Bottom-right</option></select>');
-      }
-      if(v==='merge') inputRow('<label class="vt-label">Second video</label><input id="vt-file2" class="vt-input" type="file" accept="video/*">');
-      if(v==='frame') inputRow('<label class="vt-label">Output image name</label><input id="vt-imgname" class="vt-input" value="frame.png">');
-      if(v==='replace-audio') inputRow('<label class="vt-label">Audio track</label><input id="vt-audio" class="vt-input" type="file" accept="audio/*">');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INSTAGRAM CREATOR TOOLS (Safe OAuth)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ------------------------------
+       Base & Theme (Combined Styles)
+       ------------------------------ */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    body{
+      background:linear-gradient(135deg,#833ab4 0%,#fd1d1d 50%,#fcb045 100%);
+      min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px
     }
-    renderExtra(); document.getElementById('vt-tool').addEventListener('change', renderExtra);
+    .container{
+      background:rgba(255,255,255,.95);border-radius:20px;padding:40px;box-shadow:0 20px 40px rgba(0,0,0,.12);
+      backdrop-filter:blur(10px);max-width:560px;width:100%;text-align:center
+    }
+    .logo{font-size:2.5em;font-weight:800;color:#833ab4;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;gap:10px}
+    .subtitle{color:#555;margin-bottom:26px;font-size:1.05em}
 
-    function dlLink(name, dataURL){ resultEl.innerHTML = ''; const a = document.createElement('a'); a.href = dataURL; a.download = name; a.className = 'vt-dl'; a.textContent = 'Download ' + name; resultEl.appendChild(a); }
-    async function ensureFF(){ if(!ffmpeg.isLoaded()){ setStatus('Loading editor…'); await ffmpeg.load(); } }
-    function getExt(name){ return (name.split('.').pop()||'mp4').toLowerCase(); }
+    /* Buttons */
+    .download-btn{
+      width:100%;padding:15px 30px;background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+      color:#fff;border:none;border-radius:50px;font-size:18px;font-weight:800;cursor:pointer;transition:.25s;
+      text-transform:uppercase;letter-spacing:.6px;margin-bottom:18px
+    }
+    .download-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(131,58,180,.25)}
+    .download-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 
-    // Templates
-    document.querySelectorAll('#vt-templates .tpl').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const v = btn.getAttribute('data-tpl'); const auto = document.getElementById('tplAuto').checked; const set = (tool) => { toolSel.value = tool; renderExtra(); };
-        if(v.startsWith('speed:')){ const sp = v.split(':')[1]; set('speed'); const el = document.getElementById('vt-speed'); if(el) el.value = sp; }
-        else if(v==='story720'){ set('resize'); const r=document.getElementById('vt-res'); if(r) r.value='1280:720'; }
-        else if(v==='squareMute'){ set('crop-square'); setTimeout(()=>{ toolSel.value='mute'; renderExtra(); }, 50); }
-        else if(v==='compressIG'){ set('compress'); const c=document.getElementById('vt-crf'); if(c) c.value='26'; }
-        else if(v==='yt1080'){ set('resize'); const r=document.getElementById('vt-res'); if(r) r.value='1920:1080'; }
-        if(auto) runBtn.click();
-      });
-    });
+    .back-btn{
+      background:transparent;color:#833ab4;border:2px solid #833ab4;padding:10px 20px;border-radius:25px;cursor:pointer;font-weight:700;transition:.2s;margin-top:10px
+    }
+    .back-btn:hover{background:#833ab4;color:#fff}
 
-    runBtn.addEventListener('click', async () => {
-      try{
-        resultEl.textContent = 'Processing…'; prevBox.style.display='none'; prevVid.removeAttribute('src'); setProg(0);
-        if(!fileInput.files[0]) return alert('Select a primary video file.');
-        const tool = toolSel.value; const preset = 'veryfast';
-        await ensureFF();
+    /* Cards & Lists */
+    .results-container{margin-top:22px;text-align:left;max-height:420px;overflow-y:auto;padding-right:6px}
+    .service-item{background:#f8f9fa;border-radius:15px;padding:18px;margin-bottom:14px;border:1px solid #e0e0e0;transition:.2s}
+    .service-item:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.08)}
+    .service-header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .service-icon{width:50px;height:50px;border-radius:10px;background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4em}
+    .service-name{font-weight:800;color:#222;font-size:1.05em}
+    .service-details{font-size:.94em;color:#555;line-height:1.45;margin-top:2px}
+    .service-select-btn{background:#833ab4;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.9em;font-weight:700;transition:.2s;margin-top:10px}
+    .service-select-btn:hover{background:#000;transform:translateY(-1px)}
 
-        const inFile = 'in.' + getExt(fileInput.files[0].name);
-        ffmpeg.FS('writeFile', inFile, await fetchFile(fileInput.files[0]));
-        let outFile = 'out.mp4'; let args = [];
+    /* Badges & Notices */
+    .tiktok-badge{background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);color:#fff;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:800;margin-left:10px}
+    .security-notice{background:#e7f3ff;border:1px solid #b3d9ff;border-radius:10px;padding:14px;margin:18px 0;color:#005bb5;font-size:.95em;display:flex;gap:8px;align-items:center;justify-content:center}
 
-        const start = document.getElementById('vt-start')?.value?.trim();
-        const dur = document.getElementById('vt-dur')?.value?.trim();
+    /* Grid options */
+    .login-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0}
+    .login-option{background:#f8f9fa;border:2px solid #e0e0e0;border-radius:15px;padding:20px;text-align:center;cursor:pointer;transition:.2s}
+    .login-option:hover{border-color:#833ab4;transform:translateY(-2px);box-shadow:0 5px 15px rgba(131,58,180,.12)}
+    .login-option i{font-size:2em;margin-bottom:10px;color:#833ab4}
+    .login-option span{font-weight:700;color:#333}
 
-        switch(tool){
-          case 'trim': if(!start || !dur) return alert('Enter start and duration.'); args = ['-ss', start, '-i', inFile, '-t', dur, '-c','copy', outFile]; break;
-          case 'cut': if(!start || !dur) return alert('Enter start and duration.'); args = ['-ss', start, '-i', inFile, '-t', dur, '-c:v','libx264','-preset', preset, '-c:a','aac', outFile]; break;
-          case 'mute': args = ['-i', inFile, '-c:v','copy','-an', outFile]; break;
-          case 'extract-audio': outFile='audio.mp3'; args=['-i',inFile,'-vn','-acodec','libmp3lame', outFile]; break;
-          case 'speed': { const sp=parseFloat(document.getElementById('vt-speed').value||'1'); if(!(sp>=0.25&&sp<=4)) return alert('Speed 0.25–4'); const atempo=sp<=2?`atempo=${sp}`:`atempo=2,atempo=${sp/2}`; args=['-i',inFile,'-filter_complex',`setpts=${(1/sp).toFixed(4)}*PTS;[0:a]${atempo}[a]`,'-map','0:v','-map','[a]','-c:v','libx264','-preset',preset,'-c:a','aac', outFile]; break; }
-          case 'rotate90': args=['-i',inFile,'-vf','transpose=1','-c:a','copy', outFile]; break;
-          case 'reverse': args=['-i',inFile,'-vf','reverse','-af','areverse','-c:v','libx264','-preset',preset,'-c:a','aac', outFile]; break;
-          case 'loop': { const times=parseInt(document.getElementById('vt-times').value||'3',10); args=['-stream_loop', String(times-1), '-i', inFile, '-c','copy', outFile]; break; }
-          case 'resize': { const res=document.getElementById('vt-res').value; args=['-i',inFile,'-vf',`scale=${res}:force_original_aspect_ratio=decrease,pad=${res}:(ow-iw)/2:(oh-ih)/2:black`,'-c:v','libx264','-preset',preset,'-c:a','copy', ou   <img src="media/img08.jpg" alt="Architecture lines" loading="lazy" />
-    <figcaption class="meta"><span class="tag">Photo</span><span>img08.jpg</span></figcaption>
-  </figure>
+    /* Footer */
+    .footer{margin-top:36px;text-align:center}
+    .whatsapp-btn{display:inline-block;background:#25d366;color:#fff;padding:12px 24px;border-radius:25px;text-decoration:none;font-weight:800;transition:.2s;margin-bottom:12px}
+    .whatsapp-btn:hover{background:#128c7e;transform:translateY(-2px);box-shadow:0 5px 15px rgba(37,211,102,.3)}
+    .powered-by{color:#666;font-size:.9em;font-weight:700}
 
-  <!-- VIDEO 07 -->
-  <figure class="tile col-8" style="aspect-ratio:16/9">
-    <video controls preload="metadata" poster="media/poster07.jpg">
-      <source src="media/vid07.mp4" type="video/mp4" />
-    </video>
-    <figcaption class="meta"><span class="tag">Video</span><span>vid07.mp4</span></figcaption>
-  </figure>
+    /* Pages */
+    .page{display:none}
+    .active{display:block}
 
-  <!-- IMAGE 09 -->
-  <figure class="tile col-4" style="aspect-ratio:1/1">
-    <img src="media/img09.jpg" alt="Texture study" loading="lazy" />
-    <figcaption class="meta"><span class="tag">Photo</span><span>img09.jpg</span></figcaption>
-  </figure>
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;box-shadow:0 20px 40px rgba(0,0,0,.2);text-align:left}
+    .modal-card h3{margin-bottom:12px;font-size:1.2rem}
+    .modal-card p{color:#444;line-height:1.5}
+    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 
-  <!-- VIDEO 08 -->
-  <figure class="tile col-6" style="aspect-ratio:16/9">
-    <video controls preload="metadata" poster="media/poster08.jpg">
-      <source src="media/vid08.mp4" type="video/mp4" />
-    </video>
-    <figcaption class="meta"><span class="tag">Video</span><span>vid08.mp4</span></figcaption>
-  </figure>
+    /* Responsive */
+    @media (max-width:600px){
+      .container{padding:30px 20px;margin:10px}
+      .logo{font-size:2em}
+      .login-options-grid{grid-template-columns:1fr}
+    }
 
-  <!-- IMAGE 10 -->
-  <figure class="tile col-6" style="aspect-ratio:3/2">
-    <img src="media/img10.jpg" alt="Portrait detail" loading="lazy" />
-    <figcaption class="meta"><span class="tag">Photo</span><span>img10.jpg</span></figcaption>
-  </figure>
+    /* Simple editor styles */
+    .editor-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .editor-canvas{width:100%;max-width:520px;aspect-ratio:9/16;border:1px dashed #ccc;border-radius:12px;margin:0 auto;background:#000;position:relative}
+    .editor-controls{display:grid;gap:10px}
+    .small{font-size:.85rem;color:#666}
 
-  <!-- VIDEO 09 -->
-  <figure class="tile col-6" style="aspect-ratio:9/16">
-    <video controls preload="metadata" poster="media/poster09.jpg">
-      <source src="media/vid09.mp4" type="video/mp4" />
-    </video>
-    <figcaption class="meta"><span class="tag">Video</span><span>vid09.mp4</span></figcaption>
-  </figure>
+    /* Discover page styles */
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:#f1f3f5;border:1px solid #e5e7eb;border-radius:999px;font-size:.85rem;margin:4px 6px 0 0}
+    .chip button{border:none;background:transparent;cursor:pointer;font-weight:700}
+    .pill-btn{display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-weight:700;cursor:pointer}
+    .feed-card{background:#fff;border:1px solid #ececec;border-radius:14px;overflow:hidden;margin-bottom:12px}
+    .feed-body{padding:12px}
+    .feed-meta{font-size:.85rem;color:#666}
+  </style>
+</head>
+<body>
+  <div class="container" role="application" aria-label="Instagram Creator Tools">
 
-  <!-- VIDEO 10 -->
-  <figure class="tile col-6" style="aspect-ratio:16/9">
-    <video controls preload="metadata" poster="media/poster10.jpg">
-      <source src="media/vid10.mp4" type="video/mp4" />
-    </video>
-    <figcaption class="meta"><span class="tag">Video</span><span>vid10.mp4</span></figcaption>
-  </figure>
+    <!-- Page 1: Welcome -->
+    <div class="page active" id="page1">
+      <div class="logo">
+        <i class="fab fa-instagram" aria-hidden="true"></i> INSTAGRAM CREATOR TOOLS
+        <span class="tiktok-badge" aria-label="Official badge">OFFICIAL</span>
+      </div>
+      <div class="subtitle">Connect securely with Instagram to access insights, hashtag suggestions, and caption tools.</div>
 
-</div>
+      <div class="security-notice">
+        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+        Secure OAuth login via Instagram • We never see or store your password
+      </div>
 
-  </section>  <footer>
-    <div>© <span id="year"></span> phoenix Travis — all rights reserved.</div>
-    <div class="links"><a href="#">Privacy</a> · <a href="#">Terms</a></div>
-  </footer>  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script></body>
+      <button class="download-btn" onclick="showPage(2)">
+        <i class="fas fa-rocket" aria-hidden="true"></i> Get Started
+      </button>
+
+      <div class="footer">
+        <a href="https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t" class="whatsapp-btn" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> Join WhatsApp Channel
+        </a>
+        <div class="powered-by">POWERED BY INSTAGRAM CREATOR TOOLS</div>
+      </div>
+    </div>
+
+    <!-- Page 2: Login Options -->
+    <div class="page" id="page2">
+      <div class="logo">🔐 LOGIN METHODS</div>
+      <div class="subtitle">Choose how to continue — all options redirect to Instagram's official sign-in</div>
+
+      <div class="login-options-grid">
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Continue with Instagram">
+          <i class="fab fa-instagram"></i>
+          <span>CONTINUE WITH INSTAGRAM</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Username route (redirects to Instagram)">
+          <i class="fas fa-user"></i>
+          <span>USERNAME (REDIRECT)</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Google route (redirects to Instagram)">
+          <i class="fab fa-google"></i>
+          <span>GOOGLE (REDIRECT)</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Facebook route (redirects to Instagram)">
+          <i class="fab fa-facebook"></i>
+          <span>FACEBOOK (REDIRECT)</span>
+        </div>
+      </div>
+
+      <div class="security-notice">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        We never ask for your password here. You'll sign in on instagram.com and come back once you approve.
+      </div>
+
+      <button class="back-btn" onclick="showPage(1)">← Back</button>
+    </div>
+
+    <!-- Page 6: Services -->
+    <div class="page" id="page6">
+      <div class="logo">🧰 CREATOR UTILITIES</div>
+      <div class="subtitle">Boost your workflow safely and legitimately</div>
+
+      <div class="results-container">
+        <div class="service-item" onclick="showPage(11)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🔎</div>
+            <div>
+              <div class="service-name">Discover (Recommendations)</div>
+              <div class="service-details">Personalized creator/content suggestions based on your interests (opt-in).</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('insights')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">📊</div>
+            <div>
+              <div class="service-name">Insights Preview</div>
+              <div class="service-details">See recent posts with likes, comments, and basic engagement trends. (Requires Business/Creator + permissions.)</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('hashtags')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">#</div>
+            <div>
+              <div class="service-name">Hashtag Suggestions</div>
+              <div class="service-details">Generate balanced hashtag sets (broad + niche) using your recent captions and category.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('captions')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">✍️</div>
+            <div>
+              <div class="service-name">Caption Studio</div>
+              <div class="service-details">Produce 3–5 caption drafts with different tones and CTAs. Save and reuse presets.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('planner')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🗓️</div>
+            <div>
+              <div class="service-name">Content Planner</div>
+              <div class="service-details">Add post ideas to a simple calendar and get reminders around your best time windows.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="showPage(9)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🎬</div>
+            <div>
+              <div class="service-name">Editing Tools</div>
+              <div class="service-details">Open advanced editors: Filter Lab, Crop & Resize, Sticker Studio, Reel Cover Maker.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
+        </div>
+
+        <div class="service-item" onclick="showPage(10)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🆘</div>
+            <div>
+              <div class="service-name">Support</div>
+              <div class="service-details">Get help via WhatsApp Channel, WhatsApp Group, or Telegram.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
+        </div>
+      </div>
+
+      <button class="back-btn" onclick="showPage(2)">← Back</button>
+    </div>
+
+    <!-- Page 7: Success -->
+    <div class="page" id="page7">
+      <div class="logo">✅ CONNECTED</div>
+      <div class="subtitle">Your Instagram account is connected. Choose a tool to continue.</div>
+      <button class="download-btn" onclick="showPage(6)"><i class="fas fa-tools" aria-hidden="true"></i> Open Creator Tools</button>
+      <button class="back-btn" onclick="showPage(2)">← Back</button>
+    </div>
+
+    <!-- Page 9: Editing Tools -->
+    <div class="page" id="page9">
+      <div class="logo">🎬 EDITING TOOLS</div>
+      <div class="subtitle">Powerful, mobile-friendly editors (works offline for images)</div>
+
+      <div class="results-container">
+        <!-- Reel Cover Maker -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🖼️</div>
+            <div>
+              <div class="service-name">Reel Cover Maker</div>
+              <div class="service-details">Upload an image, add styled title text, apply filters, then export a 9:16 PNG cover.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="coverInput">
+              <input type="text" id="coverTitle" placeholder="Title text (tap canvas to position)" />
+              <label class="small">Font size: <input type="range" id="coverSize" min="16" max="120" value="48"></label>
+              <label class="small">Text color: <input type="color" id="coverColor" value="#ffffff"></label>
+              <label class="small">Text shadow: <input type="checkbox" id="coverShadow" checked></label>
+              <label class="small">Filter:
+                <select id="coverFilter">
+                  <option value="none">None</option>
+                  <option value="contrast(1.1) saturate(1.2)">Punchy</option>
+                  <option value="brightness(1.1) contrast(1.15) saturate(1.3)">Vivid</option>
+                  <option value="grayscale(1)">Mono</option>
+                  <option value="sepia(0.7) contrast(1.1)">Sepia</option>
+                  <option value="hue-rotate(20deg) saturate(1.2)">Warm</option>
+                  <option value="hue-rotate(-20deg) saturate(1.2)">Cool</option>
+                </select>
+              </label>
+              <button class="service-select-btn" onclick="exportCover()">Export PNG</button>
+              <span class="small" id="coverStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="coverCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Lab -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🎛️</div>
+            <div>
+              <div class="service-name">Filter Lab</div>
+              <div class="service-details">Fine-tune brightness, contrast, saturation, hue, and blur, then export.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="filterInput">
+              <label class="small">Brightness <input type="range" id="fBright" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Contrast <input type="range" id="fCont" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Saturation <input type="range" id="fSat" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Hue <input type="range" id="fHue" min="-180" max="180" value="0" step="1"></label>
+              <label class="small">Blur <input type="range" id="fBlur" min="0" max="8" value="0" step="0.5"></label>
+              <button class="service-select-btn" onclick="exportFilter()">Export PNG</button>
+              <span class="small" id="filterStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="filterCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crop & Resize -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">✂️</div>
+            <div>
+              <div class="service-name">Crop & Resize</div>
+              <div class="service-details">Quickly crop to 9:16, 1:1, or 4:5 and export.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="cropInput">
+              <label class="small">Aspect
+                <select id="cropAspect">
+                  <option value="9:16">9:16 (Reel)</option>
+                  <option value="1:1">1:1 (Square)</option>
+                  <option value="4:5">4:5 (Portrait)</option>
+                </select>
+              </label>
+              <button class="service-select-btn" onclick="exportCrop()">Export PNG</button>
+              <span class="small" id="cropStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="cropCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticker Studio -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🧩</div>
+            <div>
+              <div class="service-name">Sticker Studio</div>
+              <div class="service-details">Tap a background color to remove it (tolerance slider), add text/emoji, export PNG with transparency.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="stickInput">
+              <label class="small">Tolerance <input type="range" id="stickTol" min="0" max="80" value="30"></label>
+              <input type="text" id="stickText" placeholder="Optional text/emoji e.g. 🔥 SALE" />
+              <label class="small">Text size <input type="range" id="stickSize" min="12" max="120" value="48"></label>
+              <label class="small">Text color <input type="color" id="stickColor" value="#ffffff"></label>
+              <button class="service-select-btn" onclick="exportSticker()">Export PNG</button>
+              <span class="small">Tip: After loading, tap the canvas background color to remove it.</span>
+              <span class="small" id="stickStatus"></span>
+            </div>
+            <div class="editor-canvas" style="aspect-ratio:1/1">
+              <canvas id="stickCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="back-btn" onclick="showPage(6)">← Back</button>
+    </div>
+
+    <!-- Page 10: Support -->
+    <div class="page" id="page10">
+      <div class="logo">🆘 SUPPORT</div>
+      <div class="subtitle">Need help? Reach us through our channels below.</div>
+
+      <div class="results-container">
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">💬</div>
+            <div>
+              <div class="service-name">WhatsApp Channel</div>
+              <div class="service-details">Announcements, tips, and quick status updates.</div>
+            </div>
+          </div>
+          <a id="supportWA" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Open WhatsApp Channel</a>
+        </div>
+
+        <div class="service-item">
+          <div class="service-header">
+            <body>
 </html>
