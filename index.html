@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -6,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ------------------------------
-       Base & Theme (Combined Styles)
+       Base & Theme
        ------------------------------ */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body {
@@ -18,390 +19,722 @@
       backdrop-filter: blur(10px); max-width: 560px; width: 100%; text-align: center;
     }
     .logo { font-size: 2.5em; font-weight: 800; color: #833ab4; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,.08); display:flex; align-items:center; justify-content:center; gap:10px; }
-    .subtitle { color: #555; margin-bottom: 26px; font-size: 1.05em; }/* Buttons */
-.download-btn {
-  width: 100%; padding: 15px 30px; background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
-  color: white; border: none; border-radius: 50px; font-size: 18px; font-weight: 800; cursor: pointer; transition: all 0.25s ease;
-  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 18px;
-}
-.download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(131, 58, 180, 0.25); }
-.download-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .subtitle { color: #555; margin-bottom: 26px; font-size: 1.05em; }
 
-.back-btn {
-  background: transparent; color: #833ab4; border: 2px solid #833ab4; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 700; transition: all 0.2s ease; margin-top: 10px;
-}
-.back-btn:hover { background: #833ab4; color: white; }
+    /* Buttons */
+    .download-btn {
+      width: 100%; padding: 15px 30px; background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+      color: white; border: none; border-radius: 50px; font-size: 18px; font-weight: 800; cursor: pointer; transition: all 0.25s ease;
+      text-transform: uppercase; letter-spacing: .6px; margin-bottom: 18px;
+    }
+    .download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(131, 58, 180, 0.25); }
+    .download-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-/* Cards & Lists */
-.results-container { margin-top: 22px; text-align: left; max-height: 420px; overflow-y: auto; padding-right: 6px; }
-.service-item { background: #f8f9fa; border-radius: 15px; padding: 18px; margin-bottom: 14px; border: 1px solid #e0e0e0; transition: all 0.2s ease; }
-.service-item:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,.08); }
-.service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-.service-icon { width: 50px; height: 50px; border-radius: 10px; background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4em; }
-.service-name { font-weight: 800; color: #222; font-size: 1.05em; }
-.service-details { font-size: .94em; color: #555; line-height: 1.45; margin-top: 2px; }
-.service-select-btn { background: #833ab4; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: .9em; font-weight: 700; transition: all .2s; margin-top: 10px; }
-.service-select-btn:hover { background: #000; transform: translateY(-1px); }
+    .back-btn {
+      background: transparent; color: #833ab4; border: 2px solid #833ab4; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 700; transition: all 0.2s ease; margin-top: 10px;
+    }
+    .back-btn:hover { background: #833ab4; color: white; }
 
-/* Badges & Notices */
-.tiktok-badge { /* retains class name for minimal diff, now used as IG badge */
-  background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-left: 10px;
-}
-.security-notice { background: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 10px; padding: 14px; margin: 18px 0; color: #005bb5; font-size: .95em; display: flex; gap: 8px; align-items: center; justify-content: center; }
+    /* Cards & Lists */
+    .results-container { margin-top: 22px; text-align: left; max-height: 420px; overflow-y: auto; padding-right: 6px; }
+    .service-item { background: #f8f9fa; border-radius: 15px; padding: 18px; margin-bottom: 14px; border: 1px solid #e0e0e0; transition: all 0.2s ease; }
+    .service-item:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,.08); }
+    .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .service-icon { width: 50px; height: 50px; border-radius: 10px; background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4em; }
+    .service-name { font-weight: 800; color: #222; font-size: 1.05em; }
+    .service-details { font-size: .94em; color: #555; line-height: 1.45; margin-top: 2px; }
+    .service-select-btn { background: #833ab4; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: .9em; font-weight: 700; transition: all .2s; margin-top: 10px; }
+    .service-select-btn:hover { background: #000; transform: translateY(-1px); }
 
-/* Grid options (from your original login grid) */
-.login-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-.login-option { background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; text-align: center; cursor: pointer; transition: .2s; }
-.login-option:hover { border-color: #833ab4; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(131,58,180,.12); }
-.login-option i { font-size: 2em; margin-bottom: 10px; color: #833ab4; }
-.login-option span { font-weight: 700; color: #333; }
+    /* Badges & Notices */
+    .tiktok-badge {
+      background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-left: 10px;
+    }
+    .security-notice { background: #e7f3ff; border: 1px solid #b3d9ff; border-radius: 10px; padding: 14px; margin: 18px 0; color: #005bb5; font-size: .95em; display: flex; gap: 8px; align-items: center; justify-content: center; }
 
-/* Footer */
-.footer { margin-top: 36px; text-align: center; }
-.whatsapp-btn { display: inline-block; background: #25d366; color: #fff; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 800; transition: .2s; margin-bottom: 12px; }
-.whatsapp-btn:hover { background: #128c7e; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37,211,102,.3); }
-.powered-by { color: #666; font-size: .9em; font-weight: 700; }
+    /* Grid options */
+    .login-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+    .login-option { background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 15px; padding: 20px; text-align: center; cursor: pointer; transition: .2s; }
+    .login-option:hover { border-color: #833ab4; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(131,58,180,.12); }
+    .login-option i { font-size: 2em; margin-bottom: 10px; color: #833ab4; }
+    .login-option span { font-weight: 700; color: #333; }
 
-/* Pages */
-.page { display: none; }
-.active { display: block; }
+    /* Footer */
+    .footer { margin-top: 36px; text-align: center; }
+    .whatsapp-btn { display: inline-block; background: #25d366; color: #fff; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: 800; transition: .2s; margin-bottom: 12px; }
+    .whatsapp-btn:hover { background: #128c7e; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37,211,102,.3); }
+    .powered-by { color: #666; font-size: .9em; font-weight: 700; }
 
-/* Modal (for demo tool previews) */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; padding: 20px; }
-.modal.open { display: flex; }
-.modal-card { background: #fff; border-radius: 16px; max-width: 520px; width: 100%; padding: 22px; box-shadow: 0 20px 40px rgba(0,0,0,.2); text-align: left; }
-.modal-card h3 { margin-bottom: 12px; font-size: 1.2rem; }
-.modal-card p { color: #444; line-height: 1.5; }
-.modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top: 16px; }
+    /* Pages */
+    .page { display: none; }
+    .active { display: block; }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .container { padding: 30px 20px; margin: 10px; }
-  .logo { font-size: 2em; }
-  .login-options-grid { grid-template-columns: 1fr; }
-}
-  /* Simple editor styles */
-.editor-grid {display:grid; grid-template-columns:1fr; gap:12px}
-.editor-canvas {width:100%; max-width:520px; aspect-ratio:9/16; border:1px dashed #ccc; border-radius:12px; margin:0 auto; background:#000; position:relative}
-.editor-controls {display:grid; gap:10px}
-.small {font-size:.85rem; color:#666}
-  /* Discover page styles */
-.chip {display:inline-flex; align-items:center; gap:6px; padding:6px 10px; background:#f1f3f5; border:1px solid #e5e7eb; border-radius:999px; font-size:.85rem; margin:4px 6px 0 0}
-.chip button {border:none; background:transparent; cursor:pointer; font-weight:700}
-.pill-btn {display:inline-block; padding:8px 14px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; font-weight:700; cursor:pointer}
-.feed-card {background:#fff; border:1px solid #ececec; border-radius:14px; overflow:hidden; margin-bottom:12px}
-.feed-body {padding:12px}
-.feed-meta {font-size:.85rem; color:#666}
+    /* Modal */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal.open { display: flex; }
+    .modal-card { background: #fff; border-radius: 16px; max-width: 520px; width: 100%; padding: 22px; box-shadow: 0 20px 40px rgba(0,0,0,.2); text-align: left; }
+    .modal-card h3 { margin-bottom: 12px; font-size: 1.2rem; }
+    .modal-card p { color: #444; line-height: 1.5; }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top: 16px; }
 
+    /* Editors */
+    .editor-grid {display:grid; grid-template-columns:1fr; gap:12px}
+    .editor-canvas {width:100%; max-width:520px; aspect-ratio:9/16; border:1px dashed #ccc; border-radius:12px; margin:0 auto; background:#000; position:relative}
+    .editor-controls {display:grid; gap:10px}
+    .small {font-size:.85rem; color:#666}
+
+    /* Discover */
+    .chip {display:inline-flex; align-items:center; gap:6px; padding:6px 10px; background:#f1f3f5; border:1px solid #e5e7eb; border-radius:999px; font-size:.85rem; margin:4px 6px 0 0}
+    .chip button {border:none; background:transparent; cursor:pointer; font-weight:700}
+    .pill-btn {display:inline-block; padding:8px 14px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; font-weight:700; cursor:pointer}
+    .feed-card {background:#fff; border:1px solid #ececec; border-radius:14px; overflow:hidden; margin-bottom:12px}
+    .feed-body {padding:12px}
+    .feed-meta {font-size:.85rem; color:#666}
+
+    @media (max-width: 600px) {
+      .container { padding: 30px 20px; margin: 10px; }
+      .logo { font-size: 2em; }
+      .login-options-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div class="container" role="application" aria-label="Instagram Creator Tools"><!-- Page 1: Welcome (combined look & feel) -->
-<div class="page active" id="page1">
-  <div class="logo">
-    <i class="fab fa-instagram" aria-hidden="true"></i> INSTAGRAM CREATOR TOOLS
-    <span class="tiktok-badge" aria-label="Official badge">OFFICIAL</span>
-  </div>
-  <div class="subtitle">Connect securely with Instagram to access insights, hashtag suggestions, and caption tools.</div>
+  <div class="container" role="application" aria-label="Instagram Creator Tools">
 
-  <div class="security-notice">
-    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-    Secure OAuth login via Instagram • We never see or store your password
-  </div>
+    <!-- Page 1: Welcome -->
+    <div class="page active" id="page1">
+      <div class="logo">
+        <i class="fab fa-instagram" aria-hidden="true"></i> INSTAGRAM CREATOR TOOLS
+        <span class="tiktok-badge" aria-label="Official badge">OFFICIAL</span>
+      </div>
+      <div class="subtitle">Connect securely with Instagram to access insights, hashtag suggestions, and caption tools.</div>
 
-  <button class="download-btn" onclick="showPage(2)">
-    <i class="fas fa-rocket" aria-hidden="true"></i> Get Started
-  </button>
+      <div class="security-notice">
+        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+        Secure OAuth login via Instagram • We never see or store your password
+      </div>
 
-  <div class="footer">
-    <a href="https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t" class="whatsapp-btn" target="_blank" rel="noopener">
-      <i class="fab fa-whatsapp" aria-hidden="true"></i> Join WhatsApp Channel
-    </a>
-    <div class="powered-by">POWERED BY INSTAGRAM CREATOR TOOLS</div>
-  </div>
-</div>
+      <!-- Fixed: no inline onclick -->
+      <button id="btnStart" class="download-btn">
+        <i class="fas fa-rocket" aria-hidden="true"></i> Get Started
+      </button>
 
-<!-- Page 2: Login Options (preserved UI, but all routes use OAuth) -->
-<div class="page" id="page2">
-  <div class="logo">🔐 LOGIN METHODS</div>
-  <div class="subtitle">Choose how to continue — all options redirect to Instagram's official sign-in</div>
-
-  <div class="login-options-grid">
-    <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Continue with Instagram">
-      <i class="fab fa-instagram"></i>
-      <span>CONTINUE WITH INSTAGRAM</span>
+      <div class="footer">
+        <a href="https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t" class="whatsapp-btn" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i> Join WhatsApp Channel
+        </a>
+        <div class="powered-by">POWERED BY INSTAGRAM CREATOR TOOLS</div>
+      </div>
     </div>
-    <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Username route (redirects to Instagram)">
-      <i class="fas fa-user"></i>
-      <span>USERNAME (REDIRECT)</span>
-    </div>
-    <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Google route (redirects to Instagram)">
-      <i class="fab fa-google"></i>
-      <span>GOOGLE (REDIRECT)</span>
-    </div>
-    <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Facebook route (redirects to Instagram)">
-      <i class="fab fa-facebook"></i>
-      <span>FACEBOOK (REDIRECT)</span>
-    </div>
-  </div>
 
-  <div class="security-notice">
-    <i class="fas fa-lock" aria-hidden="true"></i>
-    We never ask for your password here. You'll sign in on instagram.com and come back once you approve.
-  </div>
+    <!-- Page 2: Login Options -->
+    <div class="page" id="page2">
+      <div class="logo">🔐 LOGIN METHODS</div>
+      <div class="subtitle">Choose how to continue — all options redirect to Instagram's official sign-in</div>
 
-  <button class="back-btn" onclick="showPage(1)">← Back</button>
-</div>
-
-<!-- Page 6: Services Selection (compliant utilities) -->
-$1
-    <div class="service-item" onclick="showPage(11)">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">🔎</div>
-        <div>
-          <div class="service-name">Discover (Recommendations)</div>
-          <div class="service-details">Personalized creator/content suggestions based on your interests (opt‑in).</div>
+      <div class="login-options-grid">
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Continue with Instagram">
+          <i class="fab fa-instagram"></i>
+          <span>CONTINUE WITH INSTAGRAM</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Username route (redirects to Instagram)">
+          <i class="fas fa-user"></i>
+          <span>USERNAME (REDIRECT)</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Google route (redirects to Instagram)">
+          <i class="fab fa-google"></i>
+          <span>GOOGLE (REDIRECT)</span>
+        </div>
+        <div class="login-option" onclick="connectInstagram()" role="button" tabindex="0" aria-label="Facebook route (redirects to Instagram)">
+          <i class="fab fa-facebook"></i>
+          <span>FACEBOOK (REDIRECT)</span>
         </div>
       </div>
-      <button class="service-select-btn">OPEN</button>
-    </div>
-    <div class="service-item" onclick="openTool('insights')">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">📊</div>
-        <div>
-          <div class="service-name">Insights Preview</div>
-          <div class="service-details">See recent posts with likes, comments, and basic engagement trends. (Requires Business/Creator + permissions.)</div>
-        </div>
+
+      <div class="security-notice">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        We never ask for your password here. You'll sign in on instagram.com and come back once you approve.
       </div>
-      <button class="service-select-btn">SELECT</button>
+
+      <button class="back-btn" onclick="showPage(1)">← Back</button>
     </div>
 
-    <div class="service-item" onclick="openTool('hashtags')">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">#</div>
-        <div>
-          <div class="service-name">Hashtag Suggestions</div>
-          <div class="service-details">Generate balanced hashtag sets (broad + niche) using your recent captions and category.</div>
+    <!-- Page 6: Services Selection -->
+    <div class="page" id="page6">
+      <div class="logo">🧰 CREATOR UTILITIES</div>
+      <div class="subtitle">Boost your workflow safely and legitimately</div>
+
+      <div class="results-container">
+        <div class="service-item" onclick="showPage(11)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🔎</div>
+            <div>
+              <div class="service-name">Discover (Recommendations)</div>
+              <div class="service-details">Personalized creator/content suggestions based on your interests (opt-in).</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('insights')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">📊</div>
+            <div>
+              <div class="service-name">Insights Preview</div>
+              <div class="service-details">See recent posts with likes, comments, and basic engagement trends. (Requires Business/Creator + permissions.)</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('hashtags')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">#</div>
+            <div>
+              <div class="service-name">Hashtag Suggestions</div>
+              <div class="service-details">Generate balanced hashtag sets (broad + niche) using your recent captions and category.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('captions')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">✍️</div>
+            <div>
+              <div class="service-name">Caption Studio</div>
+              <div class="service-details">Produce 3–5 caption drafts with different tones and CTAs. Save and reuse presets.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="openTool('planner')">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🗓️</div>
+            <div>
+              <div class="service-name">Content Planner</div>
+              <div class="service-details">Add post ideas to a simple calendar and get reminders around your best time windows.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">SELECT</button>
+        </div>
+
+        <div class="service-item" onclick="showPage(9)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🎬</div>
+            <div>
+              <div class="service-name">Editing Tools</div>
+              <div class="service-details">Open advanced editors: Filter Lab, Crop & Resize, Sticker Studio, Reel Cover Maker.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
+        </div>
+
+        <div class="service-item" onclick="showPage(10)">
+          <div class="service-header">
+            <div class="service-icon" aria-hidden="true">🆘</div>
+            <div>
+              <div class="service-name">Support</div>
+              <div class="service-details">Get help via WhatsApp Channel, WhatsApp Group, or Telegram.</div>
+            </div>
+          </div>
+          <button class="service-select-btn">OPEN</button>
         </div>
       </div>
-      <button class="service-select-btn">SELECT</button>
+
+      <button class="back-btn" onclick="showPage(2)">← Back</button>
     </div>
 
-    <div class="service-item" onclick="openTool('captions')">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">✍️</div>
-        <div>
-          <div class="service-name">Caption Studio</div>
-          <div class="service-details">Produce 3–5 caption drafts with different tones and CTAs. Save and reuse presets.</div>
-        </div>
-      </div>
-      <button class="service-select-btn">SELECT</button>
+    <!-- Page 7: Success -->
+    <div class="page" id="page7">
+      <div class="logo">✅ CONNECTED</div>
+      <div class="subtitle">Your Instagram account is connected. Choose a tool to continue.</div>
+      <button class="download-btn" onclick="showPage(6)"><i class="fas fa-tools" aria-hidden="true"></i> Open Creator Tools</button>
+      <button class="back-btn" onclick="showPage(2)">← Back</button>
     </div>
 
-    <div class="service-item" onclick="openTool('planner')">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">🗓️</div>
-        <div>
-          <div class="service-name">Content Planner</div>
-          <div class="service-details">Add post ideas to a simple calendar and get reminders around your best time windows.</div>
+    <!-- Page 9: Editing Tools -->
+    <div class="page" id="page9">
+      <div class="logo">🎬 EDITING TOOLS</div>
+      <div class="subtitle">Powerful, mobile-friendly editors (works offline for images)</div>
+
+      <div class="results-container">
+        <!-- Reel Cover Maker -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🖼️</div>
+            <div>
+              <div class="service-name">Reel Cover Maker</div>
+              <div class="service-details">Upload an image, add styled title text, apply filters, then export a 9:16 PNG cover.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="coverInput">
+              <input type="text" id="coverTitle" placeholder="Title text (tap canvas to position)" />
+              <label class="small">Font size: <input type="range" id="coverSize" min="16" max="120" value="48"></label>
+              <label class="small">Text color: <input type="color" id="coverColor" value="#ffffff"></label>
+              <label class="small">Text shadow: <input type="checkbox" id="coverShadow" checked></label>
+              <label class="small">Filter:
+                <select id="coverFilter">
+                  <option value="none">None</option>
+                  <option value="contrast(1.1) saturate(1.2)">Punchy</option>
+                  <option value="brightness(1.1) contrast(1.15) saturate(1.3)">Vivid</option>
+                  <option value="grayscale(1)">Mono</option>
+                  <option value="sepia(0.7) contrast(1.1)">Sepia</option>
+                  <option value="hue-rotate(20deg) saturate(1.2)">Warm</option>
+                  <option value="hue-rotate(-20deg) saturate(1.2)">Cool</option>
+                </select>
+              </label>
+              <button class="service-select-btn" onclick="exportCover()">Export PNG</button>
+              <span class="small" id="coverStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="coverCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Lab -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🎛️</div>
+            <div>
+              <div class="service-name">Filter Lab</div>
+              <div class="service-details">Fine-tune brightness, contrast, saturation, hue, and blur, then export.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="filterInput">
+              <label class="small">Brightness <input type="range" id="fBright" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Contrast <input type="range" id="fCont" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Saturation <input type="range" id="fSat" min="0" max="2" value="1" step="0.01"></label>
+              <label class="small">Hue <input type="range" id="fHue" min="-180" max="180" value="0" step="1"></label>
+              <label class="small">Blur <input type="range" id="fBlur" min="0" max="8" value="0" step="0.5"></label>
+              <button class="service-select-btn" onclick="exportFilter()">Export PNG</button>
+              <span class="small" id="filterStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="filterCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crop & Resize -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">✂️</div>
+            <div>
+              <div class="service-name">Crop & Resize</div>
+              <div class="service-details">Quickly crop to 9:16, 1:1, or 4:5 and export.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="cropInput">
+              <label class="small">Aspect
+                <select id="cropAspect">
+                  <option value="9:16">9:16 (Reel)</option>
+                  <option value="1:1">1:1 (Square)</option>
+                  <option value="4:5">4:5 (Portrait)</option>
+                </select>
+              </label>
+              <button class="service-select-btn" onclick="exportCrop()">Export PNG</button>
+              <span class="small" id="cropStatus"></span>
+            </div>
+            <div class="editor-canvas">
+              <canvas id="cropCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticker Studio -->
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🧩</div>
+            <div>
+              <div class="service-name">Sticker Studio</div>
+              <div class="service-details">Tap a background color to remove it (tolerance slider), add text/emoji, export PNG with transparency.</div>
+            </div>
+          </div>
+          <div class="editor-grid">
+            <div class="editor-controls">
+              <input type="file" accept="image/*" id="stickInput">
+              <label class="small">Tolerance <input type="range" id="stickTol" min="0" max="80" value="30"></label>
+              <input type="text" id="stickText" placeholder="Optional text/emoji e.g. 🔥 SALE" />
+              <label class="small">Text size <input type="range" id="stickSize" min="12" max="120" value="48"></label>
+              <label class="small">Text color <input type="color" id="stickColor" value="#ffffff"></label>
+              <button class="service-select-btn" onclick="exportSticker()">Export PNG</button>
+              <span class="small">Tip: After loading, tap the canvas background color to remove it.</span>
+              <span class="small" id="stickStatus"></span>
+            </div>
+            <div class="editor-canvas" style="aspect-ratio:1/1">
+              <canvas id="stickCanvas"></canvas>
+            </div>
+          </div>
         </div>
       </div>
-      <button class="service-select-btn">SELECT</button>
+
+      <button class="back-btn" onclick="showPage(6)">← Back</button>
     </div>
-  
-    <div class="service-item" onclick="showPage(9)">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">🎬</div>
-        <div>
-          <div class="service-name">Editing Tools</div>
-          <div class="service-details">Open advanced editors: Filter Lab, Crop & Resize, Sticker Studio, Reel Cover Maker.</div>
+
+    <!-- Page 10: Support -->
+    <div class="page" id="page10">
+      <div class="logo">🆘 SUPPORT</div>
+      <div class="subtitle">Need help? Reach us through our channels below.</div>
+
+      <div class="results-container">
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">💬</div>
+            <div>
+              <div class="service-name">WhatsApp Channel</div>
+              <div class="service-details">Announcements, tips, and quick status updates.</div>
+            </div>
+          </div>
+          <a id="supportWA" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Open WhatsApp Channel</a>
+        </div>
+
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">👥</div>
+            <div>
+              <div class="service-name">WhatsApp Support Group</div>
+              <div class="service-details">Community Q&A and collaborative help.</div>
+            </div>
+          </div>
+          <a id="supportWAGrp" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Join Support Group (WhatsApp)</a>
+        </div>
+
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">📢</div>
+            <div>
+              <div class="service-name">Telegram Group</div>
+              <div class="service-details">Community chat and support tickets.</div>
+            </div>
+          </div>
+          <a id="supportTG" class="whatsapp-btn" style="background:#2AABEE" href="#" target="_blank" rel="noopener">Open Telegram Group</a>
         </div>
       </div>
-      <button class="service-select-btn">OPEN</button>
+
+      <button class="back-btn" onclick="showPage(1)">← Back</button>
     </div>
-    <div class="service-item" onclick="showPage(10)">
-      <div class="service-header">
-        <div class="service-icon" aria-hidden="true">🆘</div>
-        <div>
-          <div class="service-name">Support</div>
-          <div class="service-details">Get help via WhatsApp Channel, WhatsApp Group, or Telegram.</div>
-        </div>
-      </div>
-      <button class="service-select-btn">OPEN</button>
-    </div>
-  </div>
 
-  <button class="back-btn" onclick="showPage(2)">← Back</button>
-</div>
+    <!-- Page 11: Discover -->
+    <div class="page" id="page11">
+      <div class="logo">🔎 DISCOVER</div>
+      <div class="subtitle">Opt-in to get personalized creator/content recommendations.</div>
 
-<!-- Page 7: Success Page -->
-<div class="page" id="page7">
-  <div class="logo">✅ CONNECTED</div>
-  <div class="subtitle">Your Instagram account is connected. Choose a tool to continue.</div>
-  <button class="download-btn" onclick="showPage(6)"><i class="fas fa-tools" aria-hidden="true"></i> Open Creator Tools</button>
-  <button class="back-btn" onclick="showPage(2)">← Back</button>
-</div>
-
-<!-- Page 9: Editing Tools -->
-<div class="page" id="page9">
-  <div class="logo">🎬 EDITING TOOLS</div>
-  <div class="subtitle">Powerful, mobile-friendly editors (works offline for images)</div>
-
-  <div class="results-container">
-    <!-- Reel Cover Maker -->
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">🖼️</div>
-        <div>
-          <div class="service-name">Reel Cover Maker</div>
-          <div class="service-details">Upload an image, add styled title text, apply filters, then export a 9:16 PNG cover.</div>
-        </div>
-      </div>
-      <div class="editor-grid">
-        <div class="editor-controls">
-          <input type="file" accept="image/*" id="coverInput">
-          <input type="text" id="coverTitle" placeholder="Title text (tap canvas to position)" />
-          <label class="small">Font size: <input type="range" id="coverSize" min="16" max="120" value="48"></label>
-          <label class="small">Text color: <input type="color" id="coverColor" value="#ffffff"></label>
-          <label class="small">Text shadow: <input type="checkbox" id="coverShadow" checked></label>
-          <label class="small">Filter: 
-            <select id="coverFilter">
-              <option value="none">None</option>
-              <option value="contrast(1.1) saturate(1.2)">Punchy</option>
-              <option value="brightness(1.1) contrast(1.15) saturate(1.3)">Vivid</option>
-              <option value="grayscale(1)">Mono</option>
-              <option value="sepia(0.7) contrast(1.1)">Sepia</option>
-              <option value="hue-rotate(20deg) saturate(1.2)">Warm</option>
-              <option value="hue-rotate(-20deg) saturate(1.2)">Cool</option>
-            </select>
+      <div class="results-container">
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🛡️</div>
+            <div>
+              <div class="service-name">Privacy & Consent</div>
+              <div class="service-details">We only use interests you provide here and public captions you allow us to analyze. You can turn this off any time.</div>
+            </div>
+          </div>
+          <label style="display:flex; align-items:center; gap:10px; font-weight:700">
+            <input type="checkbox" id="discConsent"> Enable personalized recommendations
           </label>
-          <button class="service-select-btn" onclick="exportCover()">Export PNG</button>
-          <span class="small" id="coverStatus"></span>
         </div>
-        <div class="editor-canvas">
-          <canvas id="coverCanvas"></canvas>
+
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">🏷️</div>
+            <div>
+              <div class="service-name">Your Interests</div>
+              <div class="service-details">Add up to 5 tags (e.g., fitness, street, anime edits). Press Enter to add.</div>
+            </div>
+          </div>
+          <input id="discInput" class="form-input" placeholder="Type an interest and press Enter"/>
+          <div id="discChips" style="margin-top:8px"></div>
+          <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap">
+            <button class="pill-btn" onclick="discAddFromPreset('fitness')">+ fitness</button>
+            <button class="pill-btn" onclick="discAddFromPreset('street photography')">+ street photography</button>
+            <button class="pill-btn" onclick="discAddFromPreset('anime edits')">+ anime edits</button>
+            <button class="pill-btn" onclick="discAddFromPreset('fashion')">+ fashion</button>
+            <button class="pill-btn" onclick="discAddFromPreset('gaming')">+ gaming</button>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-header">
+            <div class="service-icon">📰</div>
+            <div>
+              <div class="service-name">Recommended For You</div>
+              <div class="service-details">Based on your interests and recent activity (demo data for now).</div>
+            </div>
+          </div>
+          <div id="discFeed"></div>
         </div>
       </div>
+
+      <button class="back-btn" onclick="showPage(6)">← Back</button>
     </div>
 
-    <!-- Filter Lab -->
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">🎛️</div>
-        <div>
-          <div class="service-name">Filter Lab</div>
-          <div class="service-details">Fine‑tune brightness, contrast, saturation, hue, and blur, then export.</div>
-        </div>
-      </div>
-      <div class="editor-grid">
-        <div class="editor-controls">
-          <input type="file" accept="image/*" id="filterInput">
-          <label class="small">Brightness <input type="range" id="fBright" min="0" max="2" value="1" step="0.01"></label>
-          <label class="small">Contrast <input type="range" id="fCont" min="0" max="2" value="1" step="0.01"></label>
-          <label class="small">Saturation <input type="range" id="fSat" min="0" max="2" value="1" step="0.01"></label>
-          <label class="small">Hue <input type="range" id="fHue" min="-180" max="180" value="0" step="1"></label>
-          <label class="small">Blur <input type="range" id="fBlur" min="0" max="8" value="0" step="0.5"></label>
-          <button class="service-select-btn" onclick="exportFilter()">Export PNG</button>
-          <span class="small" id="filterStatus"></span>
-        </div>
-        <div class="editor-canvas">
-          <canvas id="filterCanvas"></canvas>
-        </div>
-      </div>
-    </div>
+  </div>
 
-    <!-- Crop & Resize -->
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">✂️</div>
-        <div>
-          <div class="service-name">Crop & Resize</div>
-          <div class="service-details">Quickly crop to 9:16, 1:1, or 4:5 and export.</div>
-        </div>
-      </div>
-      <div class="editor-grid">
-        <div class="editor-controls">
-          <input type="file" accept="image/*" id="cropInput">
-          <label class="small">Aspect
-            <select id="cropAspect">
-              <option value="9:16">9:16 (Reel)</option>
-              <option value="1:1">1:1 (Square)</option>
-              <option value="4:5">4:5 (Portrait)</option>
-            </select>
-          </label>
-          <button class="service-select-btn" onclick="exportCrop()">Export PNG</button>
-          <span class="small" id="cropStatus"></span>
-        </div>
-        <div class="editor-canvas">
-          <canvas id="cropCanvas"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sticker Studio -->
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">🧩</div>
-        <div>
-          <div class="service-name">Sticker Studio</div>
-          <div class="service-details">Tap a background color to remove it (tolerance slider), add text/emoji, export PNG with transparency.</div>
-        </div>
-      </div>
-      <div class="editor-grid">
-        <div class="editor-controls">
-          <input type="file" accept="image/*" id="stickInput">
-          <label class="small">Tolerance <input type="range" id="stickTol" min="0" max="80" value="30"></label>
-          <input type="text" id="stickText" placeholder="Optional text/emoji e.g. 🔥 SALE" />
-          <label class="small">Text size <input type="range" id="stickSize" min="12" max="120" value="48"></label>
-          <label class="small">Text color <input type="color" id="stickColor" value="#ffffff"></label>
-          <button class="service-select-btn" onclick="exportSticker()">Export PNG</button>
-          <span class="small">Tip: After loading, tap the canvas background color to remove it.</span>
-          <span class="small" id="stickStatus"></span>
-        </div>
-        <div class="editor-canvas" style="aspect-ratio:1/1">
-          <canvas id="stickCanvas"></canvas>
-        </div>
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div class="modal-card">
+      <h3 id="modalTitle">Tool</h3>
+      <p id="modalDesc">Loading…</p>
+      <div class="modal-actions">
+        <button class="back-btn" onclick="closeModal()">Close</button>
       </div>
     </div>
   </div>
 
-  <button class="back-btn" onclick="showPage(6)">← Back</button>
-</div>
+  <script>
+    // Safe page switcher (no inline needed)
+    window.showPage = function (n) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const el = document.getElementById('page' + n);
+      if (el) el.classList.add('active');
+      window.scrollTo(0, 0);
+    };
 
-<!-- Page 10: Support -->
-<div class="page" id="page10">
-  <div class="logo">🆘 SUPPORT</div>
-  <div class="subtitle">Need help? Reach us through our channels below.</div>
+    // Instagram OAuth (placeholders)
+    function connectInstagram() {
+      const CLIENT_ID = 'YOUR_CLIENT_ID';
+      const REDIRECT_URI = encodeURIComponent('YOUR_REDIRECT_URI');
+      const SCOPE = encodeURIComponent('user_profile,user_media');
+      const STATE = encodeURIComponent(Math.random().toString(36).slice(2));
+      const authURL = `https://api.instagram.com/oauth/authorize?client_id=${CLIENT_ID}` +
+        `&redirect_uri=${REDIRECT_URI}` +
+        `&scope=${SCOPE}` +
+        `&response_type=code&state=${STATE}`;
+      window.location.href = authURL;
+    }
 
-  <div class="results-container">
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">💬</div>
-        <div>
-          <div class="service-name">WhatsApp Channel</div>
-          <div class="service-details">Announcements, tips, and quick status updates.</div>
-        </div>
-      </div>
-      <a id="supportWA" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Open WhatsApp Channel</a>
-    </div>
+    // Demo query toggle
+    (function initFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('connected') === '1') showPage(7);
+      else if (params.get('choose') === '1') showPage(6);
+    })();
 
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">👥</div>
-        <div>
-          <div class="service-name">WhatsApp Support Group</div>
-          <div class="service-details">Community Q&A and collaborative help.</div>
-        </div>
-      </div>
-      <a id="supportWAGrp" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Join Support Group (WhatsApp)</a>
-    </div>
+    // Tool demo modal
+    function openTool(key) {
+      const modal = document.getElementById('modal');
+      const title = document.getElementById('modalTitle');
+      const desc = document.getElementById('modalDesc');
+      const copy = {
+        insights: { t: 'Insights Preview', d: 'Fetch recent media and metrics via your backend using Instagram API tokens.' },
+        hashtags: { t: 'Hashtag Suggestions', d: 'Analyze captions and return 3 sets: Broad, Niche, Blend.' },
+        captions: { t: 'Caption Studio', d: 'Generate 3–5 caption drafts with different tones and CTAs.' },
+        planner:  { t: 'Content Planner', d: 'Save post ideas and reminders around best times to post.' }
+      };
+      const c = copy[key] || { t: 'Tool', d: 'Feature coming soon.' };
+      title.textContent = c.t; desc.textContent = c.d; modal.classList.add('open');
+    }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
-    <div class="service-item">
-      <div class="service-header">
-        <div class="service-icon">📢</div>
-        <div>
-          <div class="service-name">Telegram Group</div>
-          <div class="service-details">Community chat and support tickets.</div>
-        </div>
-      </div>
-      <a id="supportTG" class="whatsapp-btn" style="background:#2
+    // Wire buttons and support links after DOM ready
+    document.addEventListener('DOMContentLoaded', function () {
+      const startBtn = document.getElementById('btnStart');
+      if (startBtn) startBtn.addEventListener('click', () => showPage(2));
+
+      const links = {
+        wa: 'https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t',
+        wagroup: 'https://chat.whatsapp.com/CW5AWM0oNhm6F4vfQ1hF0W?mode=wwt',
+        tg: 'https://t.me/tmbooka'
+      };
+      const a1 = document.getElementById('supportWA');     if (a1) a1.href = links.wa;
+      const a2 = document.getElementById('supportWAGrp');  if (a2) a2.href = links.wagroup;
+      const a3 = document.getElementById('supportTG');     if (a3) a3.href = links.tg;
+    });
+
+    /* ------------------------------
+       Editors JS
+       ------------------------------ */
+    // Reel Cover Maker
+    (function enhanceCover(){
+      const canvas = document.getElementById('coverCanvas'); if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const filterSel = document.getElementById('coverFilter');
+      const shadowChk = document.getElementById('coverShadow');
+      let bgImg = new Image();
+      let textX = 40, textY = 80;
+
+      function resize(){
+        const box = canvas.parentElement.getBoundingClientRect();
+        canvas.width = Math.floor(box.width * devicePixelRatio);
+        canvas.height = Math.floor((box.width * 16/9) * devicePixelRatio);
+        canvas.style.width = box.width + 'px';
+        canvas.style.height = (box.width * 16/9) + 'px';
+        draw();
+      }
+      function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.filter = (filterSel?.value || 'none');
+        if (bgImg && bgImg.complete && bgImg.naturalWidth){
+          const cw = canvas.width, ch = canvas.height;
+          const ir = bgImg.width / bgImg.height; const cr = cw / ch;
+          let dw, dh; if (ir > cr) { dh = ch; dw = dh * ir; } else { dw = cw; dh = dw / ir; }
+          const dx = (cw - dw)/2, dy = (ch - dh)/2;
+          ctx.drawImage(bgImg, dx, dy, dw, dh);
+        }
+        ctx.filter = 'none';
+        const size = parseInt(document.getElementById('coverSize')?.value || '48', 10) * devicePixelRatio;
+        const color = document.getElementById('coverColor')?.value || '#fff';
+        const title = document.getElementById('coverTitle')?.value || '';
+        if (title){
+          if (shadowChk?.checked){ ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 12; ctx.shadowOffsetX = 2; ctx.shadowOffsetY = 2; }
+          else { ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0; }
+          ctx.font = `${size}px Arial Black, Arial, sans-serif`;
+          ctx.fillStyle = color; ctx.textBaseline = 'top';
+          wrap(ctx, title, textX*devicePixelRatio, textY*devicePixelRatio, canvas.width - 80*devicePixelRatio, size*1.35);
+        }
+      }
+      function wrap(context, text, x, y, maxWidth, lineHeight){
+        if(!text) return; const words = text.split(' '); let line = '';
+        for (let i=0;i<words.length;i++){
+          const test = line + words[i] + ' ';
+          if (context.measureText(test).width > maxWidth && i>0){ context.fillText(line, x, y); line = words[i] + ' '; y += lineHeight; }
+          else line = test;
+        }
+        context.fillText(line, x, y);
+      }
+      window.addEventListener('resize', resize); setTimeout(resize, 50);
+      document.getElementById('coverInput')?.addEventListener('change', e=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); bgImg=new Image(); bgImg.onload=()=>{URL.revokeObjectURL(url); draw();}; bgImg.src=url; document.getElementById('coverStatus').textContent = f.name + ' loaded'; });
+      ;['coverTitle','coverSize','coverColor','coverFilter','coverShadow'].forEach(id=>document.getElementById(id)?.addEventListener('input', draw));
+      canvas?.addEventListener('click', e=>{ const r=canvas.getBoundingClientRect(); textX = (e.clientX - r.left); textY = (e.clientY - r.top); draw(); });
+      window.exportCover = function(){ const url = canvas.toDataURL('image/png'); const a=document.createElement('a'); a.href=url; a.download='reel-cover.png'; a.click(); };
+    })();
+
+    // Filter Lab
+    (function filterLab(){
+      const canvas = document.getElementById('filterCanvas'); if(!canvas) return; const ctx = canvas.getContext('2d'); let img = new Image();
+      function resize(){ const box = canvas.parentElement.getBoundingClientRect(); canvas.width=Math.floor(box.width*devicePixelRatio); canvas.height=Math.floor((box.width*16/9)*devicePixelRatio); canvas.style.width=box.width+'px'; canvas.style.height=(box.width*16/9)+'px'; draw(); }
+      function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); if(img && img.complete && img.naturalWidth){ const f=buildFilter(); ctx.filter=f; const cw=canvas.width,ch=canvas.height; const ir=img.width/img.height, cr=cw/ch; let dw,dh; if(ir>cr){ dh=ch; dw=dh*ir;} else { dw=cw; dh=dw/ir;} const dx=(cw-dw)/2, dy=(ch-dh)/2; ctx.drawImage(img,dx,dy,dw,dh); ctx.filter='none'; } }
+      function buildFilter(){ const b=+document.getElementById('fBright').value; const c=+document.getElementById('fCont').value; const s=+document.getElementById('fSat').value; const h=+document.getElementById('fHue').value; const bl=+document.getElementById('fBlur').value; return `brightness(${b}) contrast(${c}) saturate(${s}) hue-rotate(${h}deg) blur(${bl}px)`; }
+      window.addEventListener('resize', resize); setTimeout(resize,50);
+      document.getElementById('filterInput')?.addEventListener('change', e=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); img=new Image(); img.onload=()=>{URL.revokeObjectURL(url); draw();}; img.src=url; document.getElementById('filterStatus').textContent = f.name + ' loaded'; });
+      ;['fBright','fCont','fSat','fHue','fBlur'].forEach(id=>document.getElementById(id)?.addEventListener('input', draw));
+      window.exportFilter = function(){ const url=canvas.toDataURL('image/png'); const a=document.createElement('a'); a.href=url; a.download='filtered.png'; a.click(); };
+    })();
+
+    // Crop & Resize
+    (function cropper(){
+      const canvas = document.getElementById('cropCanvas'); if(!canvas) return; const ctx=canvas.getContext('2d'); let img=new Image(); let aspect='9:16';
+      function setAspect(v){ aspect=v; draw(); }
+      function targetSize(){ const parts=aspect.split(':').map(Number); const w=parts[0], h=parts[1]; const box = canvas.parentElement.getBoundingClientRect(); const cw=Math.floor(box.width*devicePixelRatio); const ch=Math.floor((box.width*(h/w))*devicePixelRatio); return [cw,ch]; }
+      function draw(){ const [cw,ch]=targetSize(); canvas.width=cw; canvas.height=ch; canvas.style.width=(cw/devicePixelRatio)+'px'; canvas.style.height=(ch/devicePixelRatio)+'px'; ctx.clearRect(0,0,cw,ch); if(img && img.complete && img.naturalWidth){ const ir=img.width/img.height, cr=cw/ch; let dw,dh; if(ir>cr){ dh=ch; dw=dh*ir;} else { dw=cw; dh=dw/ir;} const dx=(cw-dw)/2, dy=(ch-dh)/2; ctx.drawImage(img,dx,dy,dw,dh); } }
+      document.getElementById('cropAspect')?.addEventListener('change', e=>setAspect(e.target.value));
+      document.getElementById('cropInput')?.addEventListener('change', e=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); img=new Image(); img.onload=()=>{URL.revokeObjectURL(url); draw();}; img.src=url; document.getElementById('cropStatus').textContent = f.name + ' loaded'; });
+      window.exportCrop=function(){ const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='cropped.png'; a.click(); };
+      setTimeout(draw,100);
+    })();
+
+    // Sticker Studio
+    (function stickers(){
+      const canvas = document.getElementById('stickCanvas'); if(!canvas) return; const ctx=canvas.getContext('2d'); let img=new Image(); let picked=null;
+      function resize(){ const box=canvas.parentElement.getBoundingClientRect(); canvas.width=Math.floor(box.width*devicePixelRatio); canvas.height=Math.floor((box.width)*devicePixelRatio); canvas.style.width=box.width+'px'; canvas.style.height=(box.width)+'px'; draw(); }
+      function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='rgba(0,0,0,0)'; ctx.fillRect(0,0,canvas.width,canvas.height); if(img && img.complete && img.naturalWidth){ const cw=canvas.width,ch=canvas.height; const ir=img.width/img.height, cr=cw/ch; let dw,dh; if(ir>cr){ dh=ch; dw=dh*ir;} else { dw=cw; dh=dw/ir;} const dx=(cw-dw)/2, dy=(ch-dh)/2; ctx.drawImage(img,dx,dy,dw,dh); if(picked) { chromaKey(dx,dy,dw,dh); } }
+        const t=document.getElementById('stickText')?.value; if(t){ const size=parseInt(document.getElementById('stickSize').value,10)*devicePixelRatio; ctx.font=`${size}px Arial Black, Arial, sans-serif`; ctx.fillStyle=document.getElementById('stickColor').value; ctx.textBaseline='bottom'; ctx.shadowColor='rgba(0,0,0,.6)'; ctx.shadowBlur=8; ctx.fillText(t, 20*devicePixelRatio, canvas.height-20*devicePixelRatio); }
+      }
+      function chromaKey(dx,dy,dw,dh){ const tol=parseInt(document.getElementById('stickTol').value,10); const imgData=ctx.getImageData(dx,dy,dw,dh); const d=imgData.data; const [r0,g0,b0]=picked; for(let i=0;i<d.length;i+=4){ const dr=d[i]-r0, dg=d[i+1]-g0, db=d[i+2]-b0; const dist=Math.sqrt(dr*dr+dg*dg+db*db); if(dist<tol) d[i+3]=0; } ctx.putImageData(imgData, dx, dy); }
+      canvas.addEventListener('click', e=>{ if(!img.naturalWidth) return; const rect=canvas.getBoundingClientRect(); const x=(e.clientX-rect.left)*devicePixelRatio; const y=(e.clientY-rect.top)*devicePixelRatio; const pix=ctx.getImageData(x,y,1,1).data; picked=[pix[0],pix[1],pix[2]]; draw(); });
+      document.getElementById('stickInput')?.addEventListener('change', e=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); img=new Image(); img.onload=()=>{URL.revokeObjectURL(url); picked=null; draw();}; img.src=url; document.getElementById('stickStatus').textContent = f.name + ' loaded'; });
+      ;['stickTol','stickText','stickSize','stickColor'].forEach(id=>document.getElementById(id)?.addEventListener('input', draw));
+      window.addEventListener('resize', resize); setTimeout(resize,80);
+      window.exportSticker=function(){ const a=document.createElement('a'); a.href=canvas.toDataURL('image/png'); a.download='sticker.png'; a.click(); };
+    })();
+
+    /* ------------------------------
+       Discover JS (demo; localStorage)
+       ------------------------------ */
+    (function discover(){
+      const CONSENT_KEY='discConsent', TAGS_KEY='discTags', STAR_KEY='discStars', HIDE_KEY='discHides';
+      const consentEl = document.getElementById('discConsent');
+      const inputEl = document.getElementById('discInput');
+      const chipsEl = document.getElementById('discChips');
+      const feedEl = document.getElementById('discFeed');
+
+      const demoCreators = [
+        {id:'c1', user:'@street_kenya', niche:['street photography','nairobicity','moody'], caption:'Moody night shots in downtown Nairobi. #streetphotography #nairobicity'},
+        {id:'c2', user:'@fit_mwende', niche:['fitness','workouts','nutrition'], caption:'Glute day + protein bowls. #fitness #gym'},
+        {id:'c3', user:'@anime_frame', niche:['anime edits','amv','fx'], caption:'Sasuke x Gojo AMV transitions.'},
+        {id:'c4', user:'@driphub', niche:['fashion','streetwear','sneakers'], caption:'Haul + outfit checks.'},
+        {id:'c5', user:'@gg_africa', niche:['gaming','highlights','streams'], caption:'Ranked clips with commentary.'}
+      ];
+
+      function load(){
+        const c = localStorage.getItem(CONSENT_KEY)==='1';
+        const tags = JSON.parse(localStorage.getItem(TAGS_KEY)||'[]');
+        if (consentEl) consentEl.checked = c;
+        renderChips(tags);
+        renderFeed(c, tags);
+      }
+      function saveConsent(v){ localStorage.setItem(CONSENT_KEY, v? '1':'0'); renderFeed(v, getTags()); }
+      function getTags(){ try{ return JSON.parse(localStorage.getItem(TAGS_KEY)||'[]'); }catch{ return []; } }
+      function setTags(tags){ localStorage.setItem(TAGS_KEY, JSON.stringify(tags.slice(0,5))); renderChips(tags); renderFeed(consentEl?.checked, tags); }
+
+      function renderChips(tags){
+        if(!chipsEl) return; chipsEl.innerHTML='';
+        tags.forEach((t,i)=>{
+          const chip=document.createElement('span'); chip.className='chip'; chip.textContent=t;
+          const x=document.createElement('button'); x.setAttribute('aria-label','Remove'); x.textContent='×'; x.onclick=()=>{ const arr=getTags(); arr.splice(i,1); setTags(arr); };
+          chip.appendChild(x); chipsEl.appendChild(chip);
+        });
+        if(tags.length===0){ const p=document.createElement('div'); p.className='small'; p.textContent='No interests yet.'; chipsEl.appendChild(p); }
+      }
+
+      function overlap(a,b){ const A=new Set(a.map(s=>s.toLowerCase())); const B=new Set(b.map(s=>s.toLowerCase())); let n=0; B.forEach(x=>{if(A.has(x)) n++;}); return n; }
+      function rank(consent, tags){
+        if(!consent || tags.length===0) return [];
+        const stars = new Set(JSON.parse(localStorage.getItem(STAR_KEY)||'[]'));
+        const hides = new Set(JSON.parse(localStorage.getItem(HIDE_KEY)||'[]'));
+        const scored = demoCreators
+          .filter(c=>!hides.has(c.id))
+          .map(c=>({ c, score: 0.6*overlap(tags, c.niche) + 0.2*Math.random() + 0.2*(stars.has(c.id)?1:0) }))
+          .sort((x,y)=>y.score-x.score);
+        return scored.map(s=>s.c);
+      }
+
+      function renderFeed(consent, tags){
+        if(!feedEl) return; feedEl.innerHTML='';
+        if(!consent){ feedEl.innerHTML='<div class="small">Turn on the consent switch above to see recommendations.</div>'; return; }
+        const items=rank(consent, tags);
+        if(items.length===0){ feedEl.innerHTML='<div class="small">Add a few interests to get your first suggestions.</div>'; return; }
+        items.forEach(item=>{
+          const card=document.createElement('div'); card.className='feed-card';
+          const ph = `https://placehold.co/600x800/png?text=${encodeURIComponent(item.niche[0]||'Creator')}`;
+          card.innerHTML = `
+            <img src="${ph}" alt="thumbnail" style="width:100%; aspect-ratio:4/5; object-fit:cover"/>
+            <div class="feed-body">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px">
+                <strong>${item.user}</strong>
+                <div>
+                  <button class="pill-btn" data-act="star" data-id="${item.id}">⭐ Save</button>
+                  <button class="pill-btn" data-act="hide" data-id="${item.id}">Hide</button>
+                </div>
+              </div>
+              <div class="feed-meta">${item.niche.join(' • ')}</div>
+              <div class="small" style="margin-top:6px">${item.caption}</div>
+            </div>`;
+          feedEl.appendChild(card);
+        });
+      }
+
+      function onInput(e){ if(e.key==='Enter'){ const v=e.target.value.trim(); if(!v) return; const tags=getTags(); if(tags.includes(v)||tags.length>=5){ e.target.value=''; return; } tags.push(v); setTags(tags); e.target.value=''; } }
+      function addPreset(v){ const tags=getTags(); if(tags.includes(v)||tags.length>=5) return; tags.push(v); setTags(tags); }
+      function onFeedClick(e){ const btn=e.target.closest('button[data-act]'); if(!btn) return; const id=btn.getAttribute('data-id'); const act=btn.getAttribute('data-act'); const key = act==='star'? STAR_KEY : HIDE_KEY; const arr = new Set(JSON.parse(localStorage.getItem(key)||'[]')); if(arr.has(id)) arr.delete(id); else arr.add(id); localStorage.setItem(key, JSON.stringify(Array.from(arr))); renderFeed(consentEl.checked, getTags()); }
+
+      consentEl?.addEventListener('change', e=>saveConsent(e.target.checked));
+      inputEl?.addEventListener('keydown', onInput);
+      feedEl?.addEventListener('click', onFeedClick);
+      window.discAddFromPreset = addPreset;
+
+      load();
+    })();
+  </script>
+</body>
+</html>
