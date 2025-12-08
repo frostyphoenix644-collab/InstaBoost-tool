@@ -1,250 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>INSTAGRAM CREATOR TOOLS — Sandbox OAuth</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Get It All – Marketplace Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Helvetica,Arial,sans-serif}
-    body{background:linear-gradient(135deg,#833ab4 0%,#fd1d1d 50%,#fcb045 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-    .container{background:rgba(255,255,255,.96);border-radius:18px;padding:34px;max-width:640px;width:100%;text-align:center;position:relative;box-shadow:0 18px 36px rgba(0,0,0,.12)}
-    .logo{font-size:28px;font-weight:800;color:#833ab4;display:flex;gap:10px;align-items:center;justify-content:center}
-    .subtitle{color:#444;margin:12px 0 20px;font-size:15px}
-    .download-btn{width:100%;padding:14px;border-radius:999px;border:0;background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);color:#fff;font-weight:800;cursor:pointer}
-    .download-btn:hover{transform:translateY(-3px)}
-    .back-btn{margin-top:12px;border-radius:999px;padding:10px 18px;border:2px solid #833ab4;background:transparent;color:#833ab4;cursor:pointer}
-    .page{display:none}
-    .active{display:block}
-    .login-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
-    .login-option{background:#fafafa;border-radius:12px;padding:14px;border:1px solid #eee;cursor:pointer}
-    .results-container{text-align:left;margin-top:6px;max-height:420px;overflow:auto}
-    .service-item{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid #eee}
-    .service-select-btn{background:#833ab4;color:#fff;border:0;padding:8px 12px;border-radius:10px;cursor:pointer}
-    .watermark{position:absolute;right:14px;bottom:10px;font-size:.75rem;color:rgba(0,0,0,.28);font-weight:700;pointer-events:none}
-    .muted{color:#666;font-size:0.9rem}
-    .fake-ig{width:100%;max-width:480px;margin:0 auto;background:#fff;border-radius:12px;padding:16px;border:1px solid #ddd;text-align:left}
-    .fake-ig h3{margin-bottom:8px}
-    .fake-btn{display:inline-block;padding:10px 16px;background:#3897f0;color:#fff;border-radius:8px;text-decoration:none;cursor:pointer}
-    @media(max-width:600px){.login-options-grid{grid-template-columns:1fr}.container{padding:20px}}
+    /* ---------------- GLOBAL RESET ---------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ---------------- HERO SECTION ---------------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("bg-intro.jpg") center/cover no-repeat;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(2,6,23,0.3), rgba(2,6,23,0.95));
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(to right, #38bdf8, #22c55e, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 750px;
+      margin: 0 auto 1.5rem auto;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    /* ---------------- NEON BUTTON ---------------- */
+    .neon-dark-btn {
+      padding: 14px 42px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(10,20,40,0.95), rgba(5,10,25,0.95));
+      color: #e5e7eb;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1px solid rgba(80,120,255,0.4);
+      cursor: pointer;
+      position: relative;
+      box-shadow:
+        inset 0 0 14px rgba(80,120,255,0.25),
+        0 0 18px rgba(80,120,255,0.25);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .neon-dark-btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 0 22px rgba(80,120,255,0.45),
+        0 0 26px rgba(80,120,255,0.6);
+    }
+
+    /* ---------------- REDIRECT OVERLAY ---------------- */
+    .redirect-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #020617, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .redirect-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .redirect-box {
+      background: radial-gradient(circle at top left, #0b1120, #020617);
+      padding: 1.6rem;
+      width: 270px;
+      border-radius: 1.2rem;
+      border: 1px solid rgba(59,130,246,0.6);
+      text-align: center;
+      box-shadow: 0 0 40px rgba(15,23,42,0.8);
+    }
+
+    .mini-scene {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .mini-orbit {
+      position: absolute;
+      inset: 0;
+      animation: spin 10s linear infinite;
+    }
+
+    .mini-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: -40px;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .mini-center {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #020617;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .redirect-title {
+      font-size: 1rem;
+      margin-top: .6rem;
+      font-weight: 600;
+    }
+
+    .redirect-sub {
+      font-size: .85rem;
+      color: #94a3b8;
+    }
+
+    /* ---------------- SECTIONS ---------------- */
+    section {
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: .8rem;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 1rem auto 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      padding: 1.2rem;
+      border-radius: .8rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 0 10px rgba(80,120,255,0.12);
+    }
+
+    .card p { color: #cbd5e1; }
+
+    /* ---------------- FOOTER ---------------- */
+    footer {
+      padding: 1rem;
+      text-align: center;
+      font-size: .8rem;
+      color: #94a3b8;
+    }
+
+    /* ---------------- WATERMARK ---------------- */
+    .watermark {
+      position: fixed;
+      bottom: 12px;
+      right: 18px;
+      font-size: .7rem;
+      letter-spacing: .25em;
+      color: rgba(200,220,255,0.15);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
-  <div class="container" role="application" aria-label="Instagram Creator Tools">
-    <!-- PAGE 1 -->
-    <div class="page active" id="page1">
-      <div class="logo"><i class="fab fa-instagram"></i> INSTAGRAM CREATOR TOOLS <span style="margin-left:8px" class="muted">OFFICIAL</span></div>
-      <div class="subtitle">Connect securely with Instagram to access insights, hashtag + caption tools and editors.</div>
 
-      <div style="background:#e7f3ff;border:1px solid #bcdffd;padding:12px;border-radius:10px;margin-bottom:16px;color:#045fb4">
-        <i class="fas fa-shield-alt"></i> Demo Sandbox OAuth — safe for testing. Replace with real OAuth later.
-      </div>
+<!-- ---------------- HERO ---------------- -->
+<section class="hero">
+  <div>
+    <h1>Introducing <span>Get It All</span></h1>
+    <p>
+      Starting a business is something many of us think about—but the biggest challenges 
+      are capital, location, and access to a real market. Large businesses spend huge 
+      amounts on advertising, while small beginners struggle to get noticed.
+      <br><br>
+      What if there was a simple way to fix all that—at zero cost?
+      <br><br>
+      <strong>Get It All</strong> is a WhatsApp-based bot that connects buyers and sellers 
+      in your locality. No hustle, no ads, no extra apps. Free for normal users, small fee 
+      for premium sellers as the platform grows.
+    </p>
 
-      <button class="download-btn" id="getStartedBtn">Get Started</button>
-      <div style="margin-top:12px" class="muted">Real Instagram login can be plugged in later.</div>
+    <button id="openBotBtn" class="neon-dark-btn">Open Get It All Bot</button>
+  </div>
+</section>
 
-      <div style="margin-top:18px">
-        <a class="muted" href="https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t" target="_blank" rel="noopener">WhatsApp Channel</a> ·
-        <a class="muted" href="https://chat.whatsapp.com/CW5AWM0oNhm6F4vfQ1hF0W?mode=wwt" target="_blank" rel="noopener">WhatsApp Group</a> ·
-        <a class="muted" href="https://t.me/tmbooka" target="_blank" rel="noopener">Telegram</a>
-      </div>
+<!-- ---------------- REDIRECT OVERLAY ---------------- -->
+<div class="redirect-overlay" id="redirectOverlay">
+  <div class="redirect-box">
+    <div class="mini-scene">
+      <div id="miniOrbit" class="mini-orbit"></div>
+      <div class="mini-center">GET IT</div>
+    </div>
+    <div class="redirect-title">Redirecting to WhatsApp…</div>
+    <div class="redirect-sub">Matching you with Get It All Bot</div>
+  </div>
+</div>
 
-      <div class="watermark">px Travis</div>
-    </div><!-- PAGE 2: LOGIN -->
-    <div class="page" id="page2">
-      <div class="logo">🔐 LOGIN METHODS</div>
-      <div class="subtitle">Choose how to continue — sandbox flow will simulate Instagram consent.</div>
+<!-- ---------------- HOW IT WORKS ---------------- -->
+<section>
+  <h2>How It Works</h2>
+  <div class="cards">
 
-      <div class="login-options-grid">
-        <div class="login-option" id="continueIG"><i class="fab fa-instagram"></i><br><strong>Continue with Instagram</strong><div class="muted">(sandbox)</div></div>
-        <div class="login-option" id="continueIG2"><i class="fas fa-user"></i><br><strong>Username (redirect)</strong><div class="muted">(sandbox)</div></div>
-        <div class="login-option" id="continueIG3"><i class="fab fa-google"></i><br><strong>Google (redirect)</strong></div>
-        <div class="login-option" id="continueIG4"><i class="fab fa-facebook"></i><br><strong>Facebook (redirect)</strong></div>
-      </div>
-
-      <div style="background:#f8f8f8;padding:10px;border-radius:8px;margin-top:10px" class="muted">
-        We never ask for your password. Real use = redirect to instagram.com.
-      </div>
-
-      <button class="back-btn" onclick="showPage(1)">← Back</button>
+    <div class="card">
+      <h3>1. Sellers Register</h3>
+      <p>They join via WhatsApp, add products, prices, and location.</p>
     </div>
 
-    <!-- PAGE 6: SERVICES -->
-    <div class="page" id="page6">
-      <div class="logo">🧰 CREATOR UTILITIES</div>
-      <div class="subtitle">Pick a tool to test behavior</div>
-
-      <div class="results-container">
-        <div class="service-item">
-          <div><strong>Discover (sandbox)</strong></div>
-          <div class="muted">Personalized recommendations (dummy)</div>
-          <button class="service-select-btn" onclick="showPage(11)">Open</button>
-        </div>
-
-        <div class="service-item">
-          <div><strong>Editing Tools</strong></div>
-          <div class="muted">Filter, Crop, Sticker (demo)</div>
-          <button class="service-select-btn" onclick="showPage(9)">Open</button>
-        </div>
-
-        <div class="service-item">
-          <div><strong>Support</strong></div>
-          <div class="muted">WhatsApp / Telegram</div>
-          <button class="service-select-btn" onclick="showPage(10)">Open</button>
-        </div>
-      </div>
-
-      <button class="back-btn" onclick="showPage(2)">← Back</button>
+    <div class="card">
+      <h3>2. Buyers Request</h3>
+      <p>Buyers tell the bot what they want: item, budget, and location.</p>
     </div>
 
-    <!-- PAGE 7: CONNECTED -->
-    <div class="page" id="page7">
-      <div class="logo">✅ CONNECTED</div>
-      <div class="subtitle">(Sandbox) Instagram account is connected.</div>
-      <!-- success text for "new account created" -->
-      <p id="createMsg" style="color:#28a745; font-weight:600; margin-bottom:10px; display:none;">
-        ✅ Success! Account created.
-      </p>
-      <button class="download-btn" onclick="showPage(6)"><i class="fas fa-tools"></i> Open Creator Tools</button>
-      <button class="back-btn" onclick="showPage(2)">← Back</button>
+    <div class="card">
+      <h3>3. Instant Match</h3>
+      <p>Bot finds the best sellers nearby. Chat happens on WhatsApp directly.</p>
     </div>
 
-    <!-- PAGE 9: EDITORS (short) -->
-    <div class="page" id="page9">
-      <div class="logo">🎬 EDITING TOOLS</div>
-      <div class="subtitle">Simple client-side demo editors</div>
-      <div class="results-container">
-        <div class="service-item">
-          <div><strong>Sticker Studio (demo)</strong></div>
-          <div class="muted">Upload an image → we pretend to process it (no backend).</div>
-          <input id="demoFile" type="file" accept="image/*" style="margin-top:8px">
-        </div>
-      </div>
-      <button class="back-btn" onclick="showPage(6)">← Back</button>
-    </div>
+  </div>
+</section>
 
-    <!-- PAGE 10: SUPPORT -->
-    <div class="page" id="page10">
-      <div class="logo">🆘 SUPPORT</div>
-      <div class="subtitle">Need help? Reach us through our channels below.</div>
-      <div class="results-container" style="text-align:left">
-        <div class="service-item">
-          <strong>WhatsApp Channel</strong>
-          <div class="muted">Announcements & tips</div>
-          <a href="https://whatsapp.com/channel/0029Vb70f2w1Hsq6kV9NOy2t" target="_blank" class="service-select-btn" style="text-decoration:none;display:inline-block;margin-top:8px">Open</a>
-        </div>
-        <div class="service-item">
-          <strong>WhatsApp Group</strong>
-          <div class="muted">Community chat</div>
-          <a href="https://chat.whatsapp.com/CW5AWM0oNhm6F4vfQ1hF0W?mode=wwt" target="_blank" class="service-select-btn" style="text-decoration:none;display:inline-block;margin-top:8px">Join</a>
-        </div>
-        <div class="service-item">
-          <strong>Telegram Group</strong>
-          <div class="muted">Tickets & support</div>
-          <a href="https://t.me/tmbooka" target="_blank" class="service-select-btn" style="background:#2AABEE;text-decoration:none;display:inline-block;margin-top:8px">Open</a>
-        </div>
-      </div>
-      <button class="back-btn" onclick="showPage(6)">← Back</button>
-    </div>
+<!-- ---------------- FOR BUYERS ---------------- -->
+<section>
+  <h2>For Buyers</h2>
+  <div class="cards">
+    <div class="card"><p>Find products from sellers near you.</p></div>
+    <div class="card"><p>No app needed—just WhatsApp.</p></div>
+    <div class="card"><p>Fast replies and instant matching.</p></div>
+  </div>
+</section>
 
-    <!-- PAGE 11: DISCOVER -->
-    <div class="page" id="page11">
-      <div class="logo">🔎 DISCOVER</div>
-      <div class="subtitle">Dummy recommended creators (no backend)</div>
-      <div class="results-container">
-        <div class="service-item"><strong>@creator_one</strong><div class="muted">Similar niche</div></div>
-        <div class="service-item"><strong>@creator_two</strong><div class="muted">Trending</div></div>
-      </div>
-      <button class="back-btn" onclick="showPage(6)">← Back</button>
-    </div>
-  </div> <!-- end .container -->
+<!-- ---------------- FOR SELLERS ---------------- -->
+<section>
+  <h2>For Sellers</h2>
+  <div class="cards">
+    <div class="card"><p>Get customers without paying for ads.</p></div>
+    <div class="card"><p>List items easily via WhatsApp.</p></div>
+    <div class="card"><p>Grow your hustle from home.</p></div>
+  </div>
+</section>
 
-  <!-- FAKE CONSENT OVERLAY -->
-  <div id="fakeConsent" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:18px">
-    <div class="fake-ig" role="dialog" aria-modal="true">
-      <h3 style="margin-top:0"><i class="fab fa-instagram" style="color:#E1306C"></i> Instagram</h3>
-      <p class="muted">Travis Sandbox App will be allowed to view your profile and media.</p>
-      <p class="muted" style="font-size:12px">Fake preview: real OAuth will open instagram.com.</p>
-      <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
-        <button class="back-btn" onclick="closeFakeConsent()">Cancel</button>
-        <a class="fake-btn" id="fakeAuthorizeBtn">Authorize</a>
-      </div>
-    </div>
-  </div><script>
-    // show/hide pages
-    function showPage(n){
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      const el = document.getElementById('page'+n);
-      if(el){ el.classList.add('active'); window.scrollTo(0,0); }
-    }
+<!-- ---------------- SAFETY ---------------- -->
+<section>
+  <h2>Safety & Disclaimer</h2>
+  <p style="max-width:700px;margin:auto;color:#94a3b8;">
+    Always confirm seller identity before sending money.  
+    Get It All only connects buyers and sellers — it does not handle payments  
+    or guarantee delivery.
+  </p>
+</section>
 
-    // show success message on connected page
-    function showCreateSuccess() {
-      var el = document.getElementById('createMsg');
-      if (el) el.style.display = 'block';
-    }
+<!-- ---------------- FOOTER ---------------- -->
+<footer>
+  Get It All • Prototype Marketplace Bot • 2025
+</footer>
 
-    // get started → page2
-    document.getElementById('getStartedBtn').addEventListener('click', function(){
-      showPage(2);
-    });
+<!-- ---------------- WATERMARK ---------------- -->
+<div class="watermark">W.TRAVIS</div>
 
-    // open fake consent on all login options
-    ['continueIG','continueIG2','continueIG3','continueIG4'].forEach(function(id){
-      var el = document.getElementById(id);
-      if (el) el.addEventListener('click', openFakeConsent);
-    });
+<!-- ---------------- JS (Redirect Logic) ---------------- -->
+<script>
+  const openBtn = document.getElementById("openBotBtn");
+  const overlay = document.getElementById("redirectOverlay");
+  const miniOrbit = document.getElementById("miniOrbit");
 
-    function openFakeConsent(){
-      document.getElementById('fakeConsent').style.display='flex';
-      window.__fake_state = Math.random().toString(36).slice(2);
-      document.getElementById('fakeAuthorizeBtn').onclick = function(){
-        const fakeCode = 'FAKE_CODE_' + Math.random().toString(36).slice(2,10);
-        const state = encodeURIComponent(window.__fake_state);
-        const params = new URLSearchParams();
-        params.set('code', fakeCode);
-        params.set('state', state);
-        document.getElementById('fakeConsent').style.display='none';
-        history.pushState({}, '', window.location.pathname + '?' + params.toString());
-        handleOAuthReturn();
-      };
-    }
+  const waLink =
+    "https://wa.me/254707992801?text=Hello%20Get%20It%20All%20Bot,%20I%20want%20to%20buy%20or%20sell";
 
-    function closeFakeConsent(){
-      document.getElementById('fakeConsent').style.display='none';
-    }
+  const miniColors = ["#60a5fa", "#22c55e", "#a855f7", "#f97316"];
+  const miniRadius = 40;
 
-    // handle "?code=..." like real OAuth
-    function handleOAuthReturn(){
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      if (code){
-        // simulate success
-        showPage(7);
-        showCreateSuccess(); // <-- your "print Success"
-      }
-    }
+  miniColors.forEach((color, i) => {
+    const dot = document.createElement("div");
+    dot.className = "mini-dot";
+    dot.style.background = color;
+    dot.style.color = color;
+    const angle = (360 / miniColors.length) * i;
+    dot.style.transform = `rotate(${angle}deg) translateX(${miniRadius}px)`;
+    miniOrbit.appendChild(dot);
+  });
 
-    // run on load (in case URL already has code)
-    window.addEventListener('load', handleOAuthReturn);
+  openBtn.addEventListener("click", e => {
+    e.preventDefault();
+    overlay.classList.add("active");
+    setTimeout(() => { window.location.href = waLink; }, 1400);
+  });
+</script>
 
-    // demo file input (to avoid errors)
-    var demo = document.getElementById('demoFile');
-    if (demo) {
-      demo.addEventListener('change', function(){
-        alert('Demo: file loaded. In real version you would process it.');
-      });
-    }
-
-    // optional: back/forward handling
-    window.addEventListener('popstate', function(){
-      const urlParams = new URLSearchParams(window.location.search);
-      if (!urlParams.get('code')) {
-        showPage(1);
-      } else {
-        handleOAuthReturn();
-      }
-    });
-  </script>
 </body>
 </html>
