@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* ---------------- GLOBAL RESET ---------------- */
+    /* -------------------------------- GLOBAL RESET -------------------------------- */
     * {
       margin: 0;
       padding: 0;
@@ -18,72 +18,84 @@
       background: #020617;
       color: #f1f5f9;
       overflow-x: hidden;
+      position: relative;
     }
 
     a { text-decoration: none; color: inherit; }
 
-    /* ---------------- HERO SECTION ---------------- */
+    /* -------------------------------- STARFIELD BACKGROUND -------------------------------- */
+    #starfield {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      background: #020617;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* -------------------------------- ANIMATED NEON TITLE -------------------------------- */
+    .neon-title {
+      background: linear-gradient(
+        90deg,
+        #3b82f6, #60a5fa, #9333ea, #22d3ee, #3b82f6
+      );
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: glowShift 7s ease infinite;
+    }
+
+    @keyframes glowShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* -------------------------------- HERO SECTION -------------------------------- */
     .hero {
-      position: relative;
       min-height: 100vh;
-      padding: 2rem 1.5rem;
+      padding: 3rem 1.5rem;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("bg-intro.jpg") center/cover no-repeat;
-      z-index: -2;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(2,6,23,0.3), rgba(2,6,23,0.95));
-      z-index: -1;
     }
 
     .hero h1 {
-      font-size: 2.3rem;
+      font-size: 2.6rem;
       font-weight: 800;
       margin-bottom: 1rem;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(to right, #38bdf8, #22c55e, #a855f7);
-      -webkit-background-clip: text;
-      color: transparent;
     }
 
     .hero p {
       max-width: 750px;
       margin: 0 auto 1.5rem auto;
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.7;
       color: #e2e8f0;
     }
 
-    /* ---------------- NEON BUTTON ---------------- */
+    /* -------------------------------- NEON BUTTON -------------------------------- */
     .neon-dark-btn {
       padding: 14px 42px;
       border-radius: 12px;
-      background: linear-gradient(180deg, rgba(10,20,40,0.95), rgba(5,10,25,0.95));
+      background: rgba(10,20,40,0.9);
       color: #e5e7eb;
       font-size: 15px;
       font-weight: 600;
-      border: 1px solid rgba(80,120,255,0.4);
+      border: 1px solid rgba(80,120,255,0.5);
       cursor: pointer;
       position: relative;
       box-shadow:
         inset 0 0 14px rgba(80,120,255,0.25),
-        0 0 18px rgba(80,120,255,0.25);
+        0 0 18px rgba(80,120,255,0.35);
       transition: all 0.25s ease;
       backdrop-filter: blur(6px);
       display: inline-block;
@@ -91,17 +103,71 @@
     }
 
     .neon-dark-btn:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       box-shadow:
         inset 0 0 22px rgba(80,120,255,0.45),
         0 0 26px rgba(80,120,255,0.6);
     }
 
-    /* ---------------- REDIRECT OVERLAY ---------------- */
+    /* -------------------------------- MODERN CARD SECTIONS -------------------------------- */
+    section {
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: .8rem;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1.3rem;
+      max-width: 900px;
+      margin: 2rem auto 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      border-radius: .9rem;
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow: 0 0 18px rgba(80,120,255,0.18);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 28px rgba(80,120,255,0.35);
+    }
+
+    .card p { color: #cbd5e1; }
+
+    /* -------------------------------- BOTTOM CTA -------------------------------- */
+    .bottom-cta {
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .bottom-cta h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    /* -------------------------------- FOOTER -------------------------------- */
+    footer {
+      padding: 1rem;
+      text-align: center;
+      font-size: .8rem;
+      color: #94a3b8;
+    }
+
+    /* -------------------------------- REDIRECT OVERLAY -------------------------------- */
     .redirect-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at top, #020617, #000);
+      background: rgba(2,6,23,0.92);
+      backdrop-filter: blur(3px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -117,18 +183,19 @@
     }
 
     .redirect-box {
-      background: radial-gradient(circle at top left, #0b1120, #020617);
+      background: rgba(10,20,40,0.85);
       padding: 1.6rem;
-      width: 270px;
+      width: 230px;
       border-radius: 1.2rem;
       border: 1px solid rgba(59,130,246,0.6);
       text-align: center;
       box-shadow: 0 0 40px rgba(15,23,42,0.8);
     }
 
+    /* ----------- SMALLER CIRCULAR ORBIT LOADER ----------- */
     .mini-scene {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       margin: 0 auto;
       position: relative;
     }
@@ -136,23 +203,23 @@
     .mini-orbit {
       position: absolute;
       inset: 0;
-      animation: spin 10s linear infinite;
+      animation: spin 6s linear infinite;
     }
 
     .mini-dot {
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform-origin: -40px;
-      box-shadow: 0 0 10px currentColor;
+      transform-origin: -32px;
+      box-shadow: 0 0 12px currentColor;
     }
 
     .mini-center {
-      width: 32px;
-      height: 32px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: #e5e7eb;
       position: absolute;
@@ -162,200 +229,196 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 8px;
-      font-weight: 700;
+      font-size: 6px;
+      font-weight: 800;
       color: #020617;
     }
 
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    .redirect-title {
-      font-size: 1rem;
-      margin-top: .6rem;
-      font-weight: 600;
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
     }
 
-    .redirect-sub {
-      font-size: .85rem;
-      color: #94a3b8;
-    }
-
-    /* ---------------- SECTIONS ---------------- */
-    section {
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-
-    section h2 {
-      font-size: 1.6rem;
-      margin-bottom: .8rem;
-    }
-
-    .cards {
-      display: grid;
-      gap: 1rem;
-      max-width: 900px;
-      margin: 1rem auto 0 auto;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.03);
-      padding: 1.2rem;
-      border-radius: .8rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 0 10px rgba(80,120,255,0.12);
-    }
-
-    .card p { color: #cbd5e1; }
-
-    /* ---------------- FOOTER ---------------- */
-    footer {
-      padding: 1rem;
-      text-align: center;
-      font-size: .8rem;
-      color: #94a3b8;
-    }
-
-    /* ---------------- WATERMARK ---------------- */
+    /* -------------------------------- WATERMARK -------------------------------- */
     .watermark {
       position: fixed;
-      bottom: 12px;
+      bottom: 10px;
       right: 18px;
       font-size: .7rem;
       letter-spacing: .25em;
       color: rgba(200,220,255,0.15);
       user-select: none;
       pointer-events: none;
+      z-index: 9999;
     }
 
+    /* -------------------------------- MOBILE -------------------------------- */
     @media (max-width: 600px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 0.9rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 0.92rem; }
     }
   </style>
 </head>
+
 <body>
 
-<!-- ---------------- HERO ---------------- -->
+<!-- ------------------- STARFIELD ------------------- -->
+<div id="starfield">
+  <canvas id="stars"></canvas>
+</div>
+
+<!-- ------------------- HERO ------------------- -->
 <section class="hero">
   <div>
-    <h1>Introducing <span>Get It All</span></h1>
+    <h1 class="neon-title">Get It All</h1>
     <p>
-      Starting a business is something many of us think about—but the biggest challenges 
+      Starting a business is something many of us think about — but the biggest challenges 
       are capital, location, and access to a real market. Large businesses spend huge 
       amounts on advertising, while small beginners struggle to get noticed.
       <br><br>
-      What if there was a simple way to fix all that—at zero cost?
-      <br><br>
       <strong>Get It All</strong> is a WhatsApp-based bot that connects buyers and sellers 
-      in your locality. No hustle, no ads, no extra apps. Free for normal users, small fee 
-      for premium sellers as the platform grows.
+      in your area instantly — no ads, no apps, no hustle.
     </p>
 
     <button id="openBotBtn" class="neon-dark-btn">Open Get It All Bot</button>
   </div>
 </section>
 
-<!-- ---------------- REDIRECT OVERLAY ---------------- -->
-<div class="redirect-overlay" id="redirectOverlay">
-  <div class="redirect-box">
-    <div class="mini-scene">
-      <div id="miniOrbit" class="mini-orbit"></div>
-      <div class="mini-center">GET IT</div>
-    </div>
-    <div class="redirect-title">Redirecting to WhatsApp…</div>
-    <div class="redirect-sub">Matching you with Get It All Bot</div>
-  </div>
-</div>
-
-<!-- ---------------- HOW IT WORKS ---------------- -->
+<!-- ------------------- HOW IT WORKS ------------------- -->
 <section>
-  <h2>How It Works</h2>
+  <h2 class="neon-title">How It Works</h2>
   <div class="cards">
-
-    <div class="card">
-      <h3>1. Sellers Register</h3>
-      <p>They join via WhatsApp, add products, prices, and location.</p>
-    </div>
-
-    <div class="card">
-      <h3>2. Buyers Request</h3>
-      <p>Buyers tell the bot what they want: item, budget, and location.</p>
-    </div>
-
-    <div class="card">
-      <h3>3. Instant Match</h3>
-      <p>Bot finds the best sellers nearby. Chat happens on WhatsApp directly.</p>
-    </div>
-
+    <div class="card"><p><strong>1.</strong> Sellers register and list their products.</p></div>
+    <div class="card"><p><strong>2.</strong> Buyers request items through WhatsApp.</p></div>
+    <div class="card"><p><strong>3.</strong> Bot matches them instantly.</p></div>
   </div>
 </section>
 
-<!-- ---------------- FOR BUYERS ---------------- -->
+<!-- ------------------- BUYERS ------------------- -->
 <section>
-  <h2>For Buyers</h2>
+  <h2 class="neon-title">For Buyers</h2>
   <div class="cards">
-    <div class="card"><p>Find products from sellers near you.</p></div>
-    <div class="card"><p>No app needed—just WhatsApp.</p></div>
-    <div class="card"><p>Fast replies and instant matching.</p></div>
+    <div class="card"><p>Find items near you instantly.</p></div>
+    <div class="card"><p>No app required — WhatsApp only.</p></div>
+    <div class="card"><p>Fast replies, real local sellers.</p></div>
   </div>
 </section>
 
-<!-- ---------------- FOR SELLERS ---------------- -->
+<!-- ------------------- SELLERS ------------------- -->
 <section>
-  <h2>For Sellers</h2>
+  <h2 class="neon-title">For Sellers</h2>
   <div class="cards">
-    <div class="card"><p>Get customers without paying for ads.</p></div>
-    <div class="card"><p>List items easily via WhatsApp.</p></div>
+    <div class="card"><p>Get customers with zero ad cost.</p></div>
+    <div class="card"><p>Sell directly from WhatsApp.</p></div>
     <div class="card"><p>Grow your hustle from home.</p></div>
   </div>
 </section>
 
-<!-- ---------------- SAFETY ---------------- -->
+<!-- ------------------- SAFETY ------------------- -->
 <section>
-  <h2>Safety & Disclaimer</h2>
+  <h2 class="neon-title">Safety & Disclaimer</h2>
   <p style="max-width:700px;margin:auto;color:#94a3b8;">
-    Always confirm seller identity before sending money.  
-    Get It All only connects buyers and sellers — it does not handle payments  
-    or guarantee delivery.
+    Always confirm seller identity before sending money. Get It All does not handle payments 
+    or offer buyer protection — it only connects buyers and sellers.
   </p>
 </section>
 
-<!-- ---------------- FOOTER ---------------- -->
+<!-- ------------------- BOTTOM CTA ------------------- -->
+<div class="bottom-cta">
+  <h2 class="neon-title">Ready to Get Started?</h2>
+  <button id="openBotBtn2" class="neon-dark-btn">Launch WhatsApp Bot</button>
+</div>
+
+<!-- ------------------- FOOTER ------------------- -->
 <footer>
-  Get It All • Prototype Marketplace Bot • 2025
+  Get It All • Marketplace Prototype • 2025
 </footer>
 
-<!-- ---------------- WATERMARK ---------------- -->
+<!-- ------------------- WATERMARK ------------------- -->
 <div class="watermark">W.TRAVIS</div>
 
-<!-- ---------------- JS (Redirect Logic) ---------------- -->
+<!-- ------------------- REDIRECT OVERLAY ------------------- -->
+<div class="redirect-overlay" id="redirectOverlay">
+  <div class="redirect-box">
+    <div class="mini-scene">
+      <div id="miniOrbit" class="mini-orbit"></div>
+      <div class="mini-center">GET</div>
+    </div>
+    <div class="redirect-title" style="margin-top:.7rem;font-weight:600;">
+      Redirecting...
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- JAVASCRIPT ------------------- -->
 <script>
-  const openBtn = document.getElementById("openBotBtn");
-  const overlay = document.getElementById("redirectOverlay");
-  const miniOrbit = document.getElementById("miniOrbit");
+/* ------ STARFIELD CANVAS ------ */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
 
-  const waLink =
-    "https://wa.me/254707992801?text=Hello%20Get%20It%20All%20Bot,%20I%20want%20to%20buy%20or%20sell";
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
 
-  const miniColors = ["#60a5fa", "#22c55e", "#a855f7", "#f97316"];
-  const miniRadius = 40;
+let stars = [];
+for (let i = 0; i < 140; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    z: Math.random() * 1.2 + 0.3,
+    s: Math.random() * 2 + 0.5
+  });
+}
 
-  miniColors.forEach((color, i) => {
-    const dot = document.createElement("div");
-    dot.className = "mini-dot";
-    dot.style.background = color;
-    dot.style.color = color;
-    const angle = (360 / miniColors.length) * i;
-    dot.style.transform = `rotate(${angle}deg) translateX(${miniRadius}px)`;
-    miniOrbit.appendChild(dot);
+function drawStars() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "#38bdf8";
+
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.s, 0, Math.PI*2);
+    ctx.fill();
+    star.y += star.z * 0.3;  // slow movement
+    if (star.y > canvas.height) star.y = 0;
   });
 
-  openBtn.addEventListener("click", e => {
-    e.preventDefault();
-    overlay.classList.add("active");
-    setTimeout(() => { window.location.href = waLink; }, 1400);
-  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+/* ------ BUILD SMALLER BLUE+AQUA LOADER DOTS ------ */
+const miniOrbit = document.getElementById("miniOrbit");
+const loaderColors = ["#60a5fa", "#22d3ee", "#3b82f6", "#2dd4bf"];
+const radius = 32;
+
+loaderColors.forEach((color, i) => {
+  const dot = document.createElement("div");
+  dot.className = "mini-dot";
+  dot.style.background = color;
+  dot.style.color = color;
+  const angle = (360 / loaderColors.length) * i;
+  dot.style.transform = `rotate(${angle}deg) translateX(${radius}px)`;
+  miniOrbit.appendChild(dot);
+});
+
+/* ------ REDIRECT LOGIC ------ */
+const openBtn = document.getElementById("openBotBtn");
+const openBtn2 = document.getElementById("openBotBtn2");
+const overlay = document.getElementById("redirectOverlay");
+
+const waLink =
+  "https://wa.me/254707992801?text=Hello%20Get%20It%20All%20Bot,%20I%20want%20to%20buy%20or%20sell";
+
+function triggerRedirect() {
+  overlay.classList.add("active");
+  setTimeout(() => { window.location.href = waLink; }, 1200);
+}
+
+openBtn.addEventListener("click", triggerRedirect);
+openBtn2.addEventListener("click", triggerRedirect);
+
 </script>
 
 </body>
