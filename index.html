@@ -1,12 +1,89 @@
 
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Home</title>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>Cosmic Personality</title>
 <style>
-body{margin:0;background:black;color:white;text-align:center;font-family:Arial;}
-h1{margin-top:40vh;font-size:3em;}
-.watermark{position:fixed;bottom:10px;right:10px;opacity:0.3;}
-</style></head>
+body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:black;color:white;font-family:Arial;}
+.page{display:none;position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.show{display:flex;}
+h1{font-size:3em;color:#d57bff;text-shadow:0 0 20px #b347ff;}
+button{padding:15px 40px;border:2px solid #b347ff;border-radius:15px;background:#320033cc;color:#e6b3ff;
+font-size:1.2em;box-shadow:0 0 18px #b347ff;transition:0.3s;position:relative;overflow:hidden;}
+button:active{transform:scale(0.95);}
+button::after{
+content:"";position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(179,71,255,0.4);
+border-radius:50%;transform:translate(-50%,-50%);transition:0.4s;
+}
+button.clicked::after{width:250px;height:250px;}
+
+#loader{
+position:absolute;top:0;left:0;width:100%;height:100%;background:black;display:flex;
+align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:0.4s;
+}
+#loader.active{opacity:1;pointer-events:auto;}
+.ripple{
+width:40px;height:40px;border:4px solid #c56dff;border-radius:50%;animation:rip 1s linear infinite;
+}
+@keyframes rip{
+0%{transform:scale(1);opacity:1;}
+100%{transform:scale(4);opacity:0;}
+}
+
+.watermark{position:fixed;bottom:10px;right:10px;opacity:0.3;color:#c56dff;}
+
+.bg{
+position:fixed;top:0;left:0;width:100%;height:100%;background:url('') center/cover no-repeat;
+opacity:0.5;z-index:-1;
+}
+</style>
+</head>
 <body>
+<div class='bg'></div>
+
+<div id='loader'><div class='ripple'></div></div>
+
+<div id='p1' class='page show'>
 <h1>KNOW YOUR TRUE SELF</h1>
-<a href="gender.html"><button>Begin</button></a>
+<button onclick="nextPage('p2', this)">Begin</button>
+</div>
+
+<div id='p2' class='page'>
+<h1>Select Gender</h1>
+<button onclick="nextPage('p3', this)">Male</button>
+<button onclick="nextPage('p3', this)">Female</button>
+<button onclick="nextPage('p3', this)">Custom</button>
+</div>
+
+<div id='p3' class='page'>
+<h1>Your Cosmic Name</h1>
+<input placeholder='Enter nickname' style='padding:10px;border-radius:10px;border:none;width:60%;'>
+<br><br>
+<button onclick="nextPage('p4', this)">Continue</button>
+</div>
+
+<div id='p4' class='page'>
+<h1>Final Step</h1>
+<p>More pages will go here…</p>
+</div>
+
 <div class='watermark'>w.travis</div>
-</body></html>
+
+<script>
+function nextPage(id, btn){
+btn.classList.add("clicked");
+setTimeout(()=>{showLoader(id)},300);
+}
+function showLoader(id){
+document.getElementById("loader").classList.add("active");
+setTimeout(()=>{
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+document.getElementById(id).classList.add('show');
+document.getElementById("loader").classList.remove("active");
+},900);
+}
+</script>
+
+</body>
+</html>
