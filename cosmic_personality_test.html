@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cosmic Personality Test</title>
+<style>
+body {
+  margin:0; padding:0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+  overflow:hidden;
+}
+
+#loader {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:black;
+  animation: fadeOut 1s ease-in-out 5s forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity:0; visibility:hidden; }
+}
+
+.glowText {
+  font-size:2.5em;
+  color:#b26bff;
+  text-shadow:0 0 15px #c59fff, 0 0 30px #7a00ff;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { text-shadow:0 0 10px #c59fff; }
+  50% { text-shadow:0 0 25px #7a00ff; }
+  100% { text-shadow:0 0 10px #c59fff; }
+}
+
+.stars {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:3px solid #a875ff;
+  box-shadow:0 0 20px #a875ff;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
+}
+
+.content {
+  opacity:0;
+  animation: showContent 1s ease-in-out 6s forwards;
+}
+
+@keyframes showContent {
+  to { opacity:1; }
+}
+</style>
+
+<style>
+.watermark {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 14px;
+  color: rgba(192,192,192,0.25);
+  pointer-events:none;
+}
+</style>
+
+<style>
+.orbit-container {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events:none;
+}
+
+.star {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle, gold, purple);
+  border-radius: 50%;
+  box-shadow: 0 0 12px gold, 0 0 20px purple;
+}
+
+#star1 {
+  animation: orbit1 12s linear infinite;
+}
+
+#star2 {
+  animation: orbit2 12s linear infinite;
+}
+
+@keyframes orbit1 {
+  0% { transform: rotate(0deg) translateX(90px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(90px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: rotate(0deg) translateX(-90px) rotate(0deg); }
+  100% { transform: rotate(-360deg) translateX(-90px) rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="stars"></div>
+  <div class="glowText">Gathering Stardust...</div>
+</div>
+
+
+<div id="homepage" style="position:relative; width:100%; height:100vh; overflow:hidden;">
+
+<style>
+#neonTitle {
+  position:absolute;
+  top:35vh;
+  width:100%;
+  text-align:center;
+  font-size:4em;
+  font-weight:bold;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow 6s linear infinite, fadeIn 2s ease-in forwards;
+  opacity:0;
+}
+
+@keyframes flow {
+  0% { background-position:0% 50%; }
+  100% { background-position:100% 50%; }
+}
+
+@keyframes fadeIn {
+  to { opacity:1; }
+}
+
+#scrollHint {
+  position:absolute;
+  bottom:40px;
+  width:100%;
+  text-align:center;
+  font-size:1.2em;
+  animation: pulseColor 2s infinite;
+}
+
+@keyframes pulseColor {
+  0% { color:#8A2BE2; }
+  50% { color:#00BFFF; }
+  100% { color:#8A2BE2; }
+}
+
+.stardust {
+  position:absolute;
+  width:3px; height:3px;
+  background:white;
+  opacity:0.7;
+  border-radius:50%;
+  animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+</style>
+
+<script>
+// Generate falling stardust
+for (let i = 0; i < 120; i++) {
+    let star = document.createElement("div");
+    star.className = "stardust";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.animationDelay = (Math.random() * 8) + "s";
+    star.style.opacity = (Math.random()*0.9);
+    document.body.appendChild(star);
+}
+</script>
+
+<div id="neonTitle">KNOW YOUR TRUE SELF</div>
+<div id="scrollHint">↓ Scroll to Begin ↓</div>
+
+</div>
+<div class="content">
+  <h1>KNOW YOUR TRUE SELF</h1>
+</div>
+
+</body>
+</html>
