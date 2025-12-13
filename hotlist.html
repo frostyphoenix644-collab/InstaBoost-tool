@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotlist • Xinv4sionx</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div><strong>Hotlist</strong></div>
+      <button id="theme-toggle" class="theme-toggle">Toggle Theme</button>
+    </div>
+
+    <div class="card">
+      <h2>Available now near you</h2>
+      <div id="list"></div>
+    </div>
+
+    <div class="footer">Regards ©w.travis</div>
+  </div>
+  <script src="/app.js"></script>
+  <script>
+  (async function() {
+    let town = 'Nairobi';
+    try {
+      const me = await apiJSON('/api/me');
+      if (me.town) town = me.town;
+    } catch {}
+    try {
+      const data = await apiJSON('/api/hotlist?town=' + encodeURIComponent(town));
+      const div = document.getElementById('list');
+      if (!data.items.length) { div.innerHTML = '<p class="note">No items right now. Check back later.</p>'; return; }
+      div.innerHTML = data.items.map(p => `
+        <div class="item">
+          <img src="${(p.images && p.images[0]) ? p.images[0] : '/assets/airi.png'}" alt="img">
+          <div>
+            <h3>${p.title} — KES ${p.price}</h3>
+            <p>${p.category} • ${p.town} • ${p.availableNow ? 'Available' : 'Not available'}</p>
+          </div>
+        </div>
+      `).join('');
+    } catch (e) { alert('Failed to load hotlist'); }
+  })();
+  </script>
+</body>
+</html>

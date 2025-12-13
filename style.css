@@ -1,0 +1,140 @@
+:root {
+  --bg: #0b0f1a;
+  --card: #121829;
+  --text: #E5E7EB;
+  --sub: #9CA3AF;
+  --accent: #6366F1;
+  --accent-2: #A855F7;
+  --border: rgba(148,163,184,0.25);
+}
+
+html.light {
+  --bg: #f7f7fb;
+  --card: #ffffff;
+  --text: #0b0f1a;
+  --sub: #475569;
+  --accent: #4f46e5;
+  --accent-2: #7c3aed;
+  --border: rgba(2,6,23,0.15);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+}
+
+.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  margin-top: 14px;
+}
+
+h1 { margin: 0 0 10px 0; font-size: 22px; }
+h2 { margin: 0 0 8px 0; font-size: 18px; }
+p.note { font-size: 13px; color: var(--sub); }
+
+label { display:block; font-size: 13px; margin: 10px 0 6px; }
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff; cursor: pointer;
+  box-shadow: 0 8px 28px rgba(99,102,241,0.35);
+}
+.btn-secondary {
+  background: transparent;
+  border:1px solid var(--border);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+}
+.theme-toggle {
+  border: 1px solid var(--border);
+  padding: 6px 10px; border-radius: 999px; cursor:pointer;
+}
+.link-row a {
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: 12px;
+}
+
+/* Airi Mascot */
+#airi-fab {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px; height: 56px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px rgba(99,102,241,0.6);
+  cursor: pointer;
+  z-index: 9999;
+}
+#airi-fab img {
+  width: 34px; height: 34px; border-radius: 999px; border: 2px solid rgba(255,255,255,0.8);
+}
+#airi-panel {
+  position: fixed;
+  right: 86px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.98);
+  width: 320px;
+  max-height: 70vh;
+  display: none;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  z-index: 9999;
+}
+#airi-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 12px; border-bottom:1px solid var(--border);
+}
+#airi-log {
+  padding: 10px 12px;
+  overflow-y: auto;
+  height: 260px;
+}
+#airi-input-row {
+  display: flex; gap:8px; padding:10px 12px; border-top:1px solid var(--border);
+}
+#airi-input-row input { flex:1; }
+#airi-close { cursor:pointer; }
+.badge { font-size: 12px; color: var(--sub); }
+.item {
+  display:flex; gap:12px; padding:10px; border:1px solid var(--border);
+  border-radius:12px; margin: 8px 0; background: transparent;
+}
+.item img { width: 68px; height: 68px; object-fit: cover; border-radius: 12px; border:1px solid var(--border); }
+.item h3 { margin:0; font-size: 15px; }
+.item p { margin:4px 0 0 0; font-size: 12px; color: var(--sub); }
+
+.footer { text-align: right; color: var(--sub); font-size: 12px; padding: 20px 0; }
